@@ -1,7 +1,5 @@
 package ru.voidcyborg.jttag.tag;
 
-import ru.voidcyborg.jttag.tag.Tag;
-
 public abstract class TagNode<T> implements Tag {
 
     private final T value;

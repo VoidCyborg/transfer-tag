@@ -6,35 +6,35 @@ import ru.voidcyborg.jttag.tags.StringNode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestTAG implements Tag {
+public class TransferTag implements Tag {
 
     private final int hashCode = Integer.MIN_VALUE + (int) (Math.random() * Integer.MAX_VALUE);
     private final Map<StringNode, Tag> map = new HashMap<>();
 
 
-    public synchronized boolean putTag(String name, TestTAG tag) {
+    public final synchronized boolean putTag(String name, TransferTag tag) {
         if (name == null || tag == null) return false;
         map.put(new StringNode(name), tag);
         return true;
     }
 
-    public synchronized TestTAG getTag(String name) {
+    public final synchronized TransferTag getTag(String name) {
         if (name == null) return null;
 
         Tag tag = map.get(new StringNode(name));
         if (tag == null) return null;
 
-        if (tag instanceof TestTAG hashTag) return hashTag;
+        if (tag instanceof TransferTag transferTag) return transferTag;
         return null;
     }
 
-    public synchronized boolean putString(String name, String value) {
+    public final synchronized boolean putString(String name, String value) {
         if (name == null || value == null) return false;
         map.put(new StringNode(name), new StringNode(value));
         return true;
     }
 
-    public synchronized String getString(String name) {
+    public final synchronized String getString(String name) {
         if (name == null) return null;
 
         Tag tag = map.get(new StringNode(name));
@@ -47,11 +47,11 @@ public class TestTAG implements Tag {
     }
 
     @Override
-    public synchronized byte[] toBytes() {
+    public final synchronized byte[] toBytes() {
         int size = 0;
         byte[][] array = new byte[map.size()][];
         for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
-
+            //TODO Нужно думать.
         }
 
         return Utils.uniteBytes();
@@ -59,15 +59,15 @@ public class TestTAG implements Tag {
 
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return hashCode;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final synchronized boolean equals(Object o) {
         if (o == null) return false;
         if (o == this) return true;
-        if (o instanceof TestTAG tag) {
+        if (o instanceof TransferTag tag) {
             for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
                 if (!entry.getValue().equals(tag.map.get(entry.getKey()))) return false;
             }
@@ -77,7 +77,7 @@ public class TestTAG implements Tag {
     }
 
     @Override
-    public synchronized String toString() {
+    public final synchronized String toString() {
         StringBuilder builder = new StringBuilder().append('{');
 
         boolean many = map.size() > 1;

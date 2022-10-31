@@ -1,4 +1,4 @@
-package ru.voidcyborg.jttag;
+package ru.voidcyborg.jttag.tag;
 
 public enum DataType {
     TAG,

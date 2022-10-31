@@ -1,17 +1,21 @@
-package ru.voidcyborg.jttag;
+package ru.voidcyborg.jttag.tags;
+
+import ru.voidcyborg.jttag.tag.DataType;
+import ru.voidcyborg.jttag.tag.TagNode;
+import ru.voidcyborg.jttag.Utils;
 
 import java.nio.charset.StandardCharsets;
 
 public class StringNode extends TagNode<String> {
 
-    protected StringNode(String value) {
+    public StringNode(String value) {
         super(value);
     }
 
     @Override
     public byte[] toBytes() {
         byte[] bytes = getValue().getBytes(StandardCharsets.UTF_8);
-        return ByteUtils.uniteBytes(DataType.STRING.toBytes(), ByteUtils.intToBytes(bytes.length), bytes);
+        return Utils.uniteBytes(DataType.STRING.toBytes(), Utils.intToBytes(bytes.length), bytes);
     }
 
     @Override
@@ -31,6 +35,6 @@ public class StringNode extends TagNode<String> {
 
     @Override
     public String toString() {
-        return "\"" + getValue() + "\"";
+        return "\"" + Utils.toJSON(getValue()) + "\"";
     }
 }

@@ -1,4 +1,7 @@
-package ru.voidcyborg.jttag;
+package ru.voidcyborg.jttag.tag;
+
+import ru.voidcyborg.jttag.Utils;
+import ru.voidcyborg.jttag.tags.StringNode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +12,20 @@ public class TestTAG implements Tag {
     private final Map<StringNode, Tag> map = new HashMap<>();
 
 
-    public synchronized boolean putTag(String name, Tag tag) {
+    public synchronized boolean putTag(String name, TestTAG tag) {
         if (name == null || tag == null) return false;
         map.put(new StringNode(name), tag);
         return true;
+    }
+
+    public synchronized TestTAG getTag(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TestTAG hashTag) return hashTag;
+        return null;
     }
 
     public synchronized boolean putString(String name, String value) {
@@ -41,7 +54,7 @@ public class TestTAG implements Tag {
 
         }
 
-        return ByteUtils.uniteBytes();
+        return Utils.uniteBytes();
     }
 
 
@@ -65,7 +78,17 @@ public class TestTAG implements Tag {
 
     @Override
     public synchronized String toString() {
-        return map.toString();
+        StringBuilder builder = new StringBuilder().append('{');
+
+        boolean many = map.size() > 1;
+        for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
+            builder.append(entry.getKey()).append(':').append(entry.getValue());
+            if (many) builder.append(',');
+        }
+        if (many) builder.deleteCharAt(builder.length() - 1);
+        builder.append('}');
+
+        return builder.toString();
     }
 
 

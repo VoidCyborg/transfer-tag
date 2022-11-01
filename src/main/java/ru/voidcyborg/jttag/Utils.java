@@ -46,6 +46,18 @@ public class Utils {
         return value;
     }
 
+    public static byte[] byteToBytes(byte value) {
+        return new byte[]{value};
+    }
+
+    public static byte bytesToByte(byte[] bytes) {
+        validateBytes(bytes);
+        if (bytes.length != 1) throw new IllegalArgumentException("Byte size should be 1, but size is " + bytes.length);
+
+        return bytes[0];
+    }
+
+
     public static String toJSON(String s) {
         if (s == null) return null;
 
@@ -62,12 +74,11 @@ public class Utils {
     }
 
     public static void validateBytes(byte[] bytes) throws IllegalArgumentException {
-        if (bytes == null || bytes.length < 1) throw new IllegalArgumentException("Bytes cannot be null or empty.");
+        if (bytes == null) throw new IllegalArgumentException("Bytes cannot be null.");
     }
 
     public static void validateBytes(byte[]... data) throws IllegalArgumentException {
         if (data == null) throw new IllegalArgumentException("Data array cannot be null.");
-        if (data.length < 1) throw new IllegalArgumentException("Data array cannot be shorter than 8 bits.");
         for (byte[] bytes : data) {
             validateBytes(bytes);
         }

@@ -1,9 +1,7 @@
 package ru.voidcyborg.jttag.tag;
 
 import ru.voidcyborg.jttag.Utils;
-import ru.voidcyborg.jttag.tags.IntegerNode;
-import ru.voidcyborg.jttag.tags.StringArrayNode;
-import ru.voidcyborg.jttag.tags.StringNode;
+import ru.voidcyborg.jttag.tags.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +27,7 @@ public class TransferTag implements Tag {
         Tag tag = map.get(new StringNode(name));
         if (tag == null) return null;
 
-        if (tag instanceof TransferTag transferTag) return transferTag;
+        if (tag instanceof TransferTag tt) return tt;
         return null;
     }
 
@@ -47,9 +45,8 @@ public class TransferTag implements Tag {
 
         if (tag instanceof TagNode<?> node) {
             if (node.getType() == DataType.STRING) {
-                Object s = node.getValue();
-                if (s == null) return null;
-                return (String) s;
+                Object o = node.getValue();
+                if (o instanceof String s) return s;
             }
         }
         return null;
@@ -69,9 +66,8 @@ public class TransferTag implements Tag {
 
         if (tag instanceof TagNode<?> node) {
             if (node.getType() == DataType.STRING_ARRAY) {
-                Object array = node.getValue();
-                if (array == null) return null;
-                return (String[]) array;
+                Object o = node.getValue();
+                if (o instanceof String[] array) return array;
             }
         }
         return null;
@@ -93,9 +89,52 @@ public class TransferTag implements Tag {
 
         if (tag instanceof TagNode<?> node) {
             if (node.getType() == DataType.INTEGER) {
-                Object s = node.getValue();
-                if (s == null) return null;
-                return (Integer) s;
+                Object o = node.getValue();
+                if (o instanceof Integer i) return i;
+            }
+        }
+        return null;
+    }
+
+
+    public final synchronized boolean putIntArray(String name, int[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new IntegerArrayNode(array));
+        return true;
+    }
+
+    public final synchronized int[] getIntArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.INTEGER_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof int[] array) return array;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putByte(String name, byte value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new ByteNode(value));
+        return true;
+    }
+
+
+    public final synchronized Byte getByte(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.BYTE) {
+                Object o = node.getValue();
+                if (o instanceof Byte b) return b;
             }
         }
         return null;

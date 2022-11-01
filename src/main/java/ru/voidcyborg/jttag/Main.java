@@ -32,6 +32,8 @@ public class Main {
         transferTag.putInt("integer", 421565015);
         transferTag.putInt("integerKek", 521581091);
         transferTag.putStringArray("array", new String[]{"kek", null, "bebra", "allo"});
+        transferTag.putByte("byte", (byte) 5);
+        transferTag.putIntArray("intArray", new int[]{5151, 1257564, 124314, 2333, 228});
         System.out.println(transferTag);
 
 

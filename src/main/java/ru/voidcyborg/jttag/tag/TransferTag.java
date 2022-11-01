@@ -3,7 +3,9 @@ package ru.voidcyborg.jttag.tag;
 import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tags.StringNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TransferTag implements Tag {
@@ -11,11 +13,13 @@ public class TransferTag implements Tag {
     private final int hashCode = Integer.MIN_VALUE + (int) (Math.random() * Integer.MAX_VALUE);
     private final Map<StringNode, Tag> map = new HashMap<>();
 
+    public final synchronized TransferTag putTag(String name) {
+        if (name == null) return null;
 
-    public final synchronized boolean putTag(String name, TransferTag tag) {
-        if (name == null || tag == null) return false;
+        TransferTag tag = new TransferTag();
         map.put(new StringNode(name), tag);
-        return true;
+
+        return tag;
     }
 
     public final synchronized TransferTag getTag(String name) {

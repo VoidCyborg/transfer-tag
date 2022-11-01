@@ -1,6 +1,7 @@
 package ru.voidcyborg.jttag.tag;
 
 import ru.voidcyborg.jttag.Utils;
+import ru.voidcyborg.jttag.tags.StringArrayNode;
 import ru.voidcyborg.jttag.tags.StringNode;
 
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ import java.util.Map;
 
 public class TransferTag implements Tag {
 
-    private final int hashCode = Integer.MIN_VALUE + (int) (Math.random() * Integer.MAX_VALUE);
     private final Map<StringNode, Tag> map = new HashMap<>();
 
     public final synchronized TransferTag putTag(String name) {
@@ -33,7 +33,7 @@ public class TransferTag implements Tag {
     }
 
     public final synchronized boolean putString(String name, String value) {
-        if (name == null || value == null) return false;
+        if (name == null) return false;
         map.put(new StringNode(name), new StringNode(value));
         return true;
     }
@@ -45,10 +45,37 @@ public class TransferTag implements Tag {
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
-            if (node.getValue() instanceof String s) return s;
+            if (node.getType() == DataType.STRING) {
+                Object s = node.getValue();
+                if (s == null) return null;
+                return (String) s;
+            }
         }
         return null;
     }
+
+    public final synchronized boolean putStringArray(String name, String[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new StringArrayNode(array));
+        return true;
+    }
+
+    public final synchronized String[] getStringArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.STRING_ARRAY) {
+                Object array = node.getValue();
+                if (array == null) return null;
+                return (String[]) array;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public final synchronized byte[] toBytes() {
@@ -63,8 +90,8 @@ public class TransferTag implements Tag {
 
 
     @Override
-    public final int hashCode() {
-        return hashCode;
+    public final synchronized int hashCode() {
+        return map.hashCode();
     }
 
     @Override
@@ -130,5 +157,5 @@ public class TransferTag implements Tag {
 
     boolean putString(String name, String value);
 
-    boolean putStringArray(String name, String[] array);*/
+   */
 }

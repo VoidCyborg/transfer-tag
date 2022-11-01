@@ -6,21 +6,36 @@ import ru.voidcyborg.jttag.Utils;
 
 import java.nio.charset.StandardCharsets;
 
-public class StringNode extends TagNode<String> {
+public final class StringNode extends TagNode<String> {
+
+    private final String value;
 
     public StringNode(String value) {
-        super(value);
+        this.value = value;
     }
 
     @Override
     public byte[] toBytes() {
-        byte[] bytes = getValue().getBytes(StandardCharsets.UTF_8);
+        if (value == null) return Utils.uniteBytes(DataType.STRING.toBytes(), Utils.intToBytes(-1));
+
+        byte[] bytes = value.getBytes(StandardCharsets.UTF_8);
         return Utils.uniteBytes(DataType.STRING.toBytes(), Utils.intToBytes(bytes.length), bytes);
     }
 
     @Override
+    public DataType getType() {
+        return DataType.STRING;
+    }
+
+    @Override
+    public String getValue() {
+        return value;
+    }
+
+    @Override
     public int hashCode() {
-        return getValue().hashCode();
+        if (value == null) return -1;
+        return value.hashCode();
     }
 
     @Override
@@ -28,13 +43,14 @@ public class StringNode extends TagNode<String> {
         if (o == null) return false;
         if (o == this) return true;
         if (o instanceof StringNode node) {
-            return node.getValue().equals(this.getValue());
+            return node.toString().equals(this.toString());
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return "\"" + Utils.toJSON(getValue()) + "\"";
+        if (value == null) return "null";
+        return "\"" + Utils.toJSON(value) + "\"";
     }
 }

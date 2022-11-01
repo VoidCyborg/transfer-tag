@@ -26,16 +26,23 @@ public enum DataType {
     }
 
 
+    public final boolean isNullable(){
 
-    public byte getCode() {
+    }
+
+    public final boolean getFixedSize(){
+
+    }
+
+    public final byte getCode() {
         return (byte) this.ordinal();
     }
 
-    public byte[] toBytes() {
+    public final byte[] toBytes() {
         return new byte[]{getCode()};
     }
 
-    public DataType getType(byte code) throws IndexOutOfBoundsException {
+    public final DataType getType(byte code) throws IndexOutOfBoundsException {
         return DataType.values()[code];
     }
 }

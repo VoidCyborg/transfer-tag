@@ -1,6 +1,7 @@
 package ru.voidcyborg.jttag.tag;
 
 import ru.voidcyborg.jttag.Utils;
+import ru.voidcyborg.jttag.tags.IntegerNode;
 import ru.voidcyborg.jttag.tags.StringArrayNode;
 import ru.voidcyborg.jttag.tags.StringNode;
 
@@ -71,6 +72,30 @@ public class TransferTag implements Tag {
                 Object array = node.getValue();
                 if (array == null) return null;
                 return (String[]) array;
+            }
+        }
+        return null;
+    }
+
+
+    public final synchronized boolean putInt(String name, int value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new IntegerNode(value));
+        return true;
+    }
+
+
+    public final synchronized Integer getInt(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.INTEGER) {
+                Object s = node.getValue();
+                if (s == null) return null;
+                return (Integer) s;
             }
         }
         return null;

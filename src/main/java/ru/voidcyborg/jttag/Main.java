@@ -2,8 +2,6 @@ package ru.voidcyborg.jttag;
 
 import ru.voidcyborg.jttag.tag.TransferTag;
 
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -31,7 +29,11 @@ public class Main {
         TransferTag transferTag = new TransferTag();
         transferTag.putString("hi", "14221");
         transferTag.putString("hi2", null);
+        transferTag.putInt("integer", 421565015);
+        transferTag.putInt("integerKek", 521581091);
         transferTag.putStringArray("array", new String[]{"kek", null, "bebra", "allo"});
         System.out.println(transferTag);
+
+
     }
 }

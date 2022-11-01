@@ -26,13 +26,13 @@ public enum DataType {
     }
 
 
-    public final boolean isNullable(){
+   /* public final boolean isNullable(){
 
     }
 
     public final boolean getFixedSize(){
 
-    }
+    }*/
 
     public final byte getCode() {
         return (byte) this.ordinal();

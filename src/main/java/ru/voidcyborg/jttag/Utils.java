@@ -44,6 +44,19 @@ public class Utils {
                 (byte) integer};
     }
 
+    public static byte[] doubleToBytes(double value) {
+        long longValue = Double.doubleToLongBits(value);
+        return new byte[]{
+                (byte) (longValue >> 56),
+                (byte) (longValue >> 48),
+                (byte) (longValue >> 40),
+                (byte) (longValue >> 32),
+                (byte) (longValue >> 24),
+                (byte) (longValue >> 16),
+                (byte) (longValue >> 8),
+                (byte) longValue};
+    }
+
    /* public static int bytesToInt(byte[] bytes) throws IllegalArgumentException {
         validateBytes(bytes);
         if (bytes.length != 4) throw new IllegalArgumentException("Int size should be 4, but size is " + bytes.length);

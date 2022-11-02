@@ -76,6 +76,10 @@ public class Main {
         tag3.putFloatArray("array", new float[]{-42141.55f, 115215.5512f, 0.00001f});
         tag3.putFloatArray("empty", new float[0]);
         tag3.putFloatArray("null", null);
+        tag3.putDouble("double", 2142142198412.312314444444444);
+        tag3.putDoubleArray("double_array", new double[]{2142142198412.312314444444444, 421481184.4214144, 1616215421.421414141});
+        tag3.putDoubleArray("double_empty", new double[0]);
+        tag3.putDoubleArray("double_null", null);
         System.out.println(shortTest);
     }
 

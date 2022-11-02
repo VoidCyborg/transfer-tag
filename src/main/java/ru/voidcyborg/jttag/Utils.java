@@ -35,7 +35,7 @@ public class Utils {
                 (byte) value};
     }
 
-    public static int bytesToInt(byte[] bytes) throws IllegalArgumentException {
+   /* public static int bytesToInt(byte[] bytes) throws IllegalArgumentException {
         validateBytes(bytes);
         if (bytes.length != 4) throw new IllegalArgumentException("Int size should be 4, but size is " + bytes.length);
 
@@ -44,18 +44,29 @@ public class Utils {
             value = (value << 8) + (b & 0xFF);
         }
         return value;
-    }
+    }*/
 
     public static byte[] byteToBytes(byte value) {
         return new byte[]{value};
     }
 
-    public static byte bytesToByte(byte[] bytes) {
+/*    public static byte bytesToByte(byte[] bytes) {
         validateBytes(bytes);
         if (bytes.length != 1) throw new IllegalArgumentException("Byte size should be 1, but size is " + bytes.length);
 
         return bytes[0];
+    }*/
+
+    public static byte[] booleanToBytes(boolean value) {
+        return value ? new byte[]{1} : new byte[]{0};
     }
+
+/*    public static boolean bytesToBoolean(byte[] bytes) {
+        validateBytes(bytes);
+        if (bytes.length != 1) throw new IllegalArgumentException("Byte size should be 1, but size is " + bytes.length);
+
+        return bytes[0] == 1;
+    }*/
 
 
     public static String toJSON(String s) {

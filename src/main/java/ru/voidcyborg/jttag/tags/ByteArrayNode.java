@@ -4,21 +4,20 @@ import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.TagNode;
 
-public final class IntegerArrayNode extends TagNode<int[]> {
-
+public class ByteArrayNode extends TagNode<byte[]> {
     private final int hashCode;
-    private final int[] array;
+    private final byte[] array;
 
-    public IntegerArrayNode(int[] value) {
+    public ByteArrayNode(byte[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }
 
 
-    private int[] clone(int[] array) {
+    private byte[] clone(byte[] array) {
         if (array == null) return null;
 
-        int[] clone = new int[array.length];
+        byte[] clone = new byte[array.length];
         System.arraycopy(array, 0, clone, 0, clone.length);
         return clone;
     }
@@ -26,7 +25,7 @@ public final class IntegerArrayNode extends TagNode<int[]> {
     private int calcHashCode() {
         if (array == null) return -1;
         int hash = 0;
-        for (int value : array) {
+        for (byte value : array) {
             hash += value;
         }
         return hash;
@@ -34,25 +33,19 @@ public final class IntegerArrayNode extends TagNode<int[]> {
 
     @Override
     public DataType getType() {
-        return DataType.INTEGER_ARRAY;
+        return DataType.BYTE_ARRAY;
     }
 
     @Override
-    public int[] getValue() {
+    public byte[] getValue() {
         return clone(array);
     }
 
     @Override
     public byte[] toBytes() {
-        if (array == null) return Utils.uniteBytes(DataType.INTEGER_ARRAY.toBytes(), Utils.intToBytes(-1));
+        if (array == null) return Utils.uniteBytes(DataType.BYTE_ARRAY.toBytes(), Utils.intToBytes(-1));
 
-        byte[][] nodes = new byte[array.length][];
-        for (int i = 0; i < nodes.length; i++) {
-            nodes[i] = Utils.intToBytes(array[i]);
-        }
-        byte[] bytes = Utils.uniteBytes(nodes);
-
-        return Utils.uniteBytes(DataType.INTEGER_ARRAY.toBytes(), Utils.intToBytes(bytes.length), bytes);
+        return Utils.uniteBytes(DataType.BYTE_ARRAY.toBytes(), Utils.intToBytes(array.length), array);
     }
 
     @Override
@@ -64,7 +57,7 @@ public final class IntegerArrayNode extends TagNode<int[]> {
     public boolean equals(Object o) {
         if (o == null) return false;
         if (o == this) return true;
-        if (o instanceof IntegerArrayNode arrayNode) {
+        if (o instanceof ByteArrayNode arrayNode) {
             if (arrayNode.array == null && this.array == null) return true;
             if (arrayNode.array == null || this.array == null) return false;
 
@@ -83,7 +76,7 @@ public final class IntegerArrayNode extends TagNode<int[]> {
         StringBuilder builder = new StringBuilder().append('[');
 
         boolean many = array.length > 1;
-        for (int value : array) {
+        for (byte value : array) {
             builder.append(value);
             if (many) builder.append(',');
         }

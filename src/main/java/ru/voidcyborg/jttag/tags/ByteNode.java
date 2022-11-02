@@ -4,7 +4,7 @@ import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.TagNode;
 
-public class ByteNode extends TagNode<Byte> {
+public final class ByteNode extends TagNode<Byte> {
 
     private final byte value;
 

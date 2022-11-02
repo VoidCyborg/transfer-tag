@@ -2,7 +2,11 @@ package ru.voidcyborg.jttag;
 
 import ru.voidcyborg.jttag.tag.TransferTag;
 
+import java.nio.ByteBuffer;
+
 public class Main {
+
+
     public static void main(String[] args) {
 
 
@@ -34,8 +38,18 @@ public class Main {
         transferTag.putStringArray("array", new String[]{"kek", null, "bebra", "allo"});
         transferTag.putByte("byte", (byte) 5);
         transferTag.putIntArray("intArray", new int[]{5151, 1257564, 124314, 2333, 228});
+        transferTag.putIntArray("emptyArray", new int[0]);
         System.out.println(transferTag);
 
 
+        TransferTag boltest = new TransferTag();
+        boltest.putBoolean("test1", true);
+        boltest.putBoolean("test2", false);
+        boltest.putIntArray("intArray", new int[]{4214, 555, 11, 33, 777});
+        boltest.putIntArray("intArray null", null);
+        boltest.putByteArray("byteArray", new byte[]{44, 31, 127, -128});
+        boltest.putByteArray("byteArray null", null);
+        System.out.println(boltest);
     }
+
 }

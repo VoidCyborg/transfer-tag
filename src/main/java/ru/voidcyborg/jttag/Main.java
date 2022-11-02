@@ -49,6 +49,8 @@ public class Main {
         boltest.putIntArray("intArray null", null);
         boltest.putByteArray("byteArray", new byte[]{44, 31, 127, -128});
         boltest.putByteArray("byteArray null", null);
+        boltest.putBooleanArray("bolArray", null);
+        boltest.putBooleanArray("bolArray2", new boolean[]{true,false,false});
         System.out.println(boltest);
     }
 

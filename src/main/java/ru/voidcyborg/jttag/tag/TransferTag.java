@@ -185,6 +185,27 @@ public class TransferTag implements Tag {
     }
 
 
+    public final synchronized boolean putBooleanArray(String name, boolean[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new BooleanArrayNode(array));
+        return true;
+    }
+
+    public final synchronized boolean[] getBooleanArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.BOOLEAN_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof boolean[] array) return array;
+            }
+        }
+        return null;
+    }
+
     @Override
     public final synchronized byte[] toBytes() {
         int size = 0;

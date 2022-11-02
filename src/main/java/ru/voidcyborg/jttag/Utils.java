@@ -28,7 +28,20 @@ public class Utils {
     }
 
     public static byte[] intToBytes(int value) {
-        return new byte[]{(byte) (value >>> 24), (byte) (value >>> 16), (byte) (value >>> 8), (byte) value};
+        return new byte[]{
+                (byte) (value >> 24),
+                (byte) (value >> 16),
+                (byte) (value >> 8),
+                (byte) value};
+    }
+
+    public static byte[] floatToBytes(float value) {
+        int integer = Float.floatToIntBits(value);
+        return new byte[]{
+                (byte) (integer >> 24),
+                (byte) (integer >> 16),
+                (byte) (integer >> 8),
+                (byte) integer};
     }
 
    /* public static int bytesToInt(byte[] bytes) throws IllegalArgumentException {

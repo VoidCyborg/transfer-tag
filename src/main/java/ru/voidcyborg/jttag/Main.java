@@ -7,14 +7,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        try {
-            for (short i = Short.MIN_VALUE; i < Short.MAX_VALUE; i++) {
-                Utils.shortToBytes(i);
+       /* try {
+            for (float i = -421444.5f; i < 2515125.5f; i += 0.1f) {
+                Utils.floatToBytes(i);
             }
-            Utils.shortToBytes(Short.MAX_VALUE);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         TransferTag tag = new TransferTag();
@@ -70,9 +69,14 @@ public class Main {
         shortTest.putShortArray("empty", new short[0]);
         System.out.println(shortTest);
         TransferTag tag2 = shortTest.putTag("tag2");
+        tag2.putFloat("float", 421412.32541f);
+        tag2.putFloat("ffff", -421412.566666f);
         tag2.putShortArray("short2", new short[]{2155, 666, 1111});
+        TransferTag tag3 = tag2.putTag("tag3");
+        tag3.putFloatArray("array", new float[]{-42141.55f, 115215.5512f, 0.00001f});
+        tag3.putFloatArray("empty", new float[0]);
+        tag3.putFloatArray("null", null);
         System.out.println(shortTest);
-
     }
 
 }

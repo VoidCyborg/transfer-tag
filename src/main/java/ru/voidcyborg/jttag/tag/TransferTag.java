@@ -46,7 +46,7 @@ public class TransferTag implements Tag {
         if (tag instanceof TagNode<?> node) {
             if (node.getType() == DataType.SHORT) {
                 Object o = node.getValue();
-                if (o instanceof Short i) return i;
+                if (o instanceof Short s) return s;
             }
         }
         return null;
@@ -91,7 +91,7 @@ public class TransferTag implements Tag {
         if (tag instanceof TagNode<?> node) {
             if (node.getType() == DataType.LONG) {
                 Object o = node.getValue();
-                if (o instanceof Long i) return i;
+                if (o instanceof Long l) return l;
             }
         }
         return null;
@@ -114,6 +114,49 @@ public class TransferTag implements Tag {
             if (node.getType() == DataType.LONG_ARRAY) {
                 Object o = node.getValue();
                 if (o instanceof long[] array) return array;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putFloat(String name, float value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new FloatNode(value));
+        return true;
+    }
+
+
+    public final synchronized Float getFloat(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.FLOAT) {
+                Object o = node.getValue();
+                if (o instanceof Float f) return f;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putFloatArray(String name, float[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new FloatArrayNode(array));
+        return true;
+    }
+
+    public final synchronized float[] getFloatArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.FLOAT_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof float[] array) return array;
             }
         }
         return null;

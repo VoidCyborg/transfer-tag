@@ -446,7 +446,11 @@ public class TransferTag implements Tag {
         if (o == this) return true;
         if (o instanceof TransferTag tag) {
             for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
-                if (!entry.getValue().equals(tag.map.get(entry.getKey()))) return false;
+                Tag value = tag.map.get(entry.getKey());
+
+                if (value == null && entry.getValue() == null) continue;
+                if (value == null || entry.getValue() == null) return false;
+                if (!value.equals(entry.getValue())) return false;
             }
             return true;
         }
@@ -467,41 +471,4 @@ public class TransferTag implements Tag {
 
         return builder.toString();
     }
-
-
-
-
-  /*  public boolean putTagArray(String name, Tag[] tags);
-
-    boolean putBoolean(String name, boolean value);
-
-    boolean putBooleanArray(String name, boolean[] array);
-
-    boolean putByte(String name, byte value);
-
-    boolean putByteArray(String name, byte[] array);
-
-    boolean putShort(String name, short value);
-
-    boolean putShortArray(String name, short[] array);
-
-    boolean putInt(String name, int value);
-
-    boolean putIntArray(String name, int[] array);
-
-    boolean putLong(String name, long value);
-
-    boolean putLongArray(String name, long[] array);
-
-    boolean putFloat(String name, float value);
-
-    boolean putFloatArray(String name, float[] array);
-
-    boolean putDouble(String name, double value);
-
-    boolean putDoubleArray(String name, double[] array);
-
-    boolean putString(String name, String value);
-
-   */
 }

@@ -6,17 +6,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
-        try {
-            for (int i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
-                Utils.charToBytes((char) i);
-            }
-            Utils.charToBytes(Character.MAX_VALUE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
         TransferTag tag = new TransferTag();
         tag.putString("lol", "data");
         tag.putString("g312", "fafafaf");

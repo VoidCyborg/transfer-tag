@@ -7,13 +7,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-       /* try {
-            for (float i = -421444.5f; i < 2515125.5f; i += 0.1f) {
-                Utils.floatToBytes(i);
+        try {
+            for (int i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
+                Utils.charToBytes((char) i);
             }
+            Utils.charToBytes(Character.MAX_VALUE);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
 
         TransferTag tag = new TransferTag();
@@ -80,7 +81,16 @@ public class Main {
         tag3.putDoubleArray("double_array", new double[]{2142142198412.312314444444444, 421481184.4214144, 1616215421.421414141});
         tag3.putDoubleArray("double_empty", new double[0]);
         tag3.putDoubleArray("double_null", null);
+        tag3.putChar("char", '\n');
+        tag3.putChar("char2", '@');
         System.out.println(shortTest);
+
+        TransferTag charTest = new TransferTag();
+        charTest.putCharArray("charArray", new char[]{444, 0, 321, -0, 21355});
+        charTest.putChar("char", (char) 68);
+        System.out.println(charTest);
+
+
     }
 
 }

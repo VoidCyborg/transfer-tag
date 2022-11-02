@@ -86,6 +86,12 @@ public class Utils {
                 (byte) value};
     }
 
+    public static byte[] charToBytes(char value) {
+        return new byte[]{
+                (byte) (value >> 8),
+                (byte) value};
+    }
+
     public static byte[] byteToBytes(byte value) {
         return new byte[]{value};
     }
@@ -123,6 +129,17 @@ public class Utils {
 
         return builder.toString();
     }
+
+    public static String toJSON(char c) {
+        StringBuilder builder = new StringBuilder();
+
+        int index = reservedJSON.indexOf(c);
+        if (index != -1) builder.append(replacementJSON[index]);
+        else builder.append(c);
+
+        return builder.toString();
+    }
+
 
     public static void validateBytes(byte[] bytes) throws IllegalArgumentException {
         if (bytes == null) throw new IllegalArgumentException("Bytes cannot be null.");

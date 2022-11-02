@@ -205,6 +205,49 @@ public class TransferTag implements Tag {
         return null;
     }
 
+    public final synchronized boolean putChar(String name, char value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new CharacterNode(value));
+        return true;
+    }
+
+
+    public final synchronized Character getChar(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.CHARACTER) {
+                Object o = node.getValue();
+                if (o instanceof Character c) return c;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putCharArray(String name, char[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new CharacterArrayNode(array));
+        return true;
+    }
+
+    public final synchronized char[] getCharArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.CHARACTER_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof char[] array) return array;
+            }
+        }
+        return null;
+    }
+
     public final synchronized boolean putString(String name, String value) {
         if (name == null) return false;
         map.put(new StringNode(name), new StringNode(value));

@@ -4,7 +4,7 @@ import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.TagNode;
 
-public class BooleanArrayNode extends TagNode<boolean[]> {
+public final class BooleanArrayNode extends TagNode<boolean[]> {
     private final int hashCode;
     private final boolean[] array;
 

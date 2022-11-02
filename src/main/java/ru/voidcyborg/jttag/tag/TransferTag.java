@@ -3,9 +3,7 @@ package ru.voidcyborg.jttag.tag;
 import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tags.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TransferTag implements Tag {
@@ -28,6 +26,96 @@ public class TransferTag implements Tag {
         if (tag == null) return null;
 
         if (tag instanceof TransferTag tt) return tt;
+        return null;
+    }
+
+
+    public final synchronized boolean putShort(String name, short value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new ShortNode(value));
+        return true;
+    }
+
+
+    public final synchronized Short getShort(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.SHORT) {
+                Object o = node.getValue();
+                if (o instanceof Short i) return i;
+            }
+        }
+        return null;
+    }
+
+
+    public final synchronized boolean putShortArray(String name, short[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new ShortArrayNode(array));
+        return true;
+    }
+
+    public final synchronized short[] getShortArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.SHORT_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof short[] array) return array;
+            }
+        }
+        return null;
+    }
+
+
+    public final synchronized boolean putLong(String name, long value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new LongNode(value));
+        return true;
+    }
+
+
+    public final synchronized Long getLong(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.LONG) {
+                Object o = node.getValue();
+                if (o instanceof Long i) return i;
+            }
+        }
+        return null;
+    }
+
+
+    public final synchronized boolean putLongArray(String name, long[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new LongArrayNode(array));
+        return true;
+    }
+
+    public final synchronized long[] getLongArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.LONG_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof long[] array) return array;
+            }
+        }
         return null;
     }
 

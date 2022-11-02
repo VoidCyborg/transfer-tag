@@ -2,12 +2,19 @@ package ru.voidcyborg.jttag;
 
 import ru.voidcyborg.jttag.tag.TransferTag;
 
-import java.nio.ByteBuffer;
-
 public class Main {
 
 
     public static void main(String[] args) {
+
+        try {
+            for (short i = Short.MIN_VALUE; i < Short.MAX_VALUE; i++) {
+                Utils.shortToBytes(i);
+            }
+            Utils.shortToBytes(Short.MAX_VALUE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         TransferTag tag = new TransferTag();
@@ -50,8 +57,22 @@ public class Main {
         boltest.putByteArray("byteArray", new byte[]{44, 31, 127, -128});
         boltest.putByteArray("byteArray null", null);
         boltest.putBooleanArray("bolArray", null);
-        boltest.putBooleanArray("bolArray2", new boolean[]{true,false,false});
+        boltest.putBooleanArray("bolArray2", new boolean[]{true, false, false});
         System.out.println(boltest);
+
+
+        TransferTag shortTest = new TransferTag();
+        shortTest.putShort("short", (short) 5215);
+        System.out.println(shortTest);
+        System.out.println(shortTest.getShort("short"));
+        shortTest.putShortArray("array", null);
+        shortTest.putShortArray("name", new short[]{2414, 666, 22220});
+        shortTest.putShortArray("empty", new short[0]);
+        System.out.println(shortTest);
+        TransferTag tag2 = shortTest.putTag("tag2");
+        tag2.putShortArray("short2", new short[]{2155, 666, 1111});
+        System.out.println(shortTest);
+
     }
 
 }

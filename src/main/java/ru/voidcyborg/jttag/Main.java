@@ -1,12 +1,12 @@
 package ru.voidcyborg.jttag;
 
+import ru.voidcyborg.jttag.parser.TagFactory;
 import ru.voidcyborg.jttag.tag.DataType;
+import ru.voidcyborg.jttag.tag.Tag;
 import ru.voidcyborg.jttag.tag.TransferTag;
-import ru.voidcyborg.jttag.tags.StringNode;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 public class Main {
 
@@ -87,7 +87,7 @@ public class Main {
             System.out.println(charTest);
 
             TransferTag bytesTest = new TransferTag();
-            bytesTest.putIntArray("chatMessage", new int[]{5151, 32155, 2333, 333});
+            bytesTest.putInt("chatMessage", 4124141);
 
 
             //ReadTest
@@ -111,7 +111,6 @@ public class Main {
 
             byte[] nameBytes = new byte[size];
             buffer.get(nameBytes);
-            StringNode.fromBytes(nameBytes);
 
             System.out.println(new String(nameBytes, StandardCharsets.UTF_8));
 
@@ -119,18 +118,12 @@ public class Main {
             dataType = DataType.getType(type);
             System.out.println(dataType);
 
-            size = buffer.getInt();
-            System.out.println("Value size: " + size);
+            byte[] tagBytes = new byte[dataType.getSize()];
+            buffer.get(tagBytes);
+            Tag parsed = TagFactory.primitiveTag(dataType, tagBytes);
 
-            int[] array = new int[size / 4];
+            System.out.println(parsed);
 
-            for (int i = 0; i < array.length; i++) {
-                array[i] = buffer.getInt();
-            }
-
-
-            System.out.println("IntArray");
-            System.out.println(Arrays.toString(array));
 
         } catch (Exception e) {
             e.printStackTrace();

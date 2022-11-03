@@ -426,9 +426,11 @@ public class TransferTag implements Tag {
     @Override
     public final synchronized byte[] toBytes() {
         int index = 0;
-        byte[][] array = new byte[map.size()][];
+        byte[][] array = new byte[map.size() * 2][];
         for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
-            array[index] = entry.getValue().toBytes();
+            array[index] = entry.getKey().toBytes();
+            array[index + 1] = entry.getValue().toBytes();
+            index += 2;
         }
 
         byte[] bytes = Utils.uniteBytes(array);

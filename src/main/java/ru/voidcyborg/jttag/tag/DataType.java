@@ -44,7 +44,7 @@ public enum DataType {
         return new byte[]{getCode()};
     }
 
-    public final DataType getType(byte code) throws IndexOutOfBoundsException {
+    public static DataType getType(byte code) throws IndexOutOfBoundsException {
         return DataType.values()[code];
     }
 }

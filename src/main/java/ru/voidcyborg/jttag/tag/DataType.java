@@ -1,12 +1,12 @@
 package ru.voidcyborg.jttag.tag;
 
 public enum DataType {
-    TAG,
-    TAG_ARRAY,
-    BOOLEAN,
-    BOOLEAN_ARRAY,
-    BYTE,
-    BYTE_ARRAY,
+    TAG(false, false),
+    TAG_ARRAY(false, true),
+    BOOLEAN(true, false),
+    BOOLEAN_ARRAY(true, true),
+    BYTE(true, false),
+    BYTE_ARRAY(true, true),
     SHORT,
     SHORT_ARRAY,
     INTEGER,
@@ -23,18 +23,22 @@ public enum DataType {
     STRING_ARRAY;
 
 
-    DataType() {
+    private final boolean primitive;
+    private final boolean array;
 
+    DataType(boolean primitive, boolean array) {
+        this.primitive = primitive;
+        this.array = array;
     }
 
 
-   /* public final boolean isNullable(){
-
+    public final boolean isPrimitive() {
+        return primitive;
     }
 
-    public final boolean getFixedSize(){
-
-    }*/
+    public final boolean isArray() {
+        return array;
+    }
 
     public final byte getCode() {
         return (byte) this.ordinal();

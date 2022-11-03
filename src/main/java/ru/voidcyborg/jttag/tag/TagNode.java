@@ -9,6 +9,4 @@ public abstract class TagNode<T> implements Tag {
     @Override
     public abstract byte[] toBytes();
 
-    @Override
-    public abstract TagNode<T> fromBytes(byte[] bytes);
 }

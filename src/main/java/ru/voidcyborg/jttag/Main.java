@@ -2,6 +2,7 @@ package ru.voidcyborg.jttag;
 
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.TransferTag;
+import ru.voidcyborg.jttag.tags.StringNode;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -110,6 +111,7 @@ public class Main {
 
             byte[] nameBytes = new byte[size];
             buffer.get(nameBytes);
+            StringNode.fromBytes(nameBytes);
 
             System.out.println(new String(nameBytes, StandardCharsets.UTF_8));
 
@@ -125,6 +127,7 @@ public class Main {
             for (int i = 0; i < array.length; i++) {
                 array[i] = buffer.getInt();
             }
+
 
             System.out.println("IntArray");
             System.out.println(Arrays.toString(array));

@@ -86,7 +86,7 @@ public class Main {
             System.out.println(charTest);
 
             TransferTag bytesTest = new TransferTag();
-            bytesTest.putString("chatMessage", "Hello World!!!");
+            bytesTest.putIntArray("chatMessage", new int[]{5151, 32155, 2333, 333});
 
 
             //ReadTest
@@ -109,9 +109,8 @@ public class Main {
             System.out.println("Name size: " + size);
 
             byte[] nameBytes = new byte[size];
-            for (int i = 0; i < nameBytes.length; i++) {
-                nameBytes[i] = buffer.get();
-            }
+            buffer.get(nameBytes);
+
             System.out.println(new String(nameBytes, StandardCharsets.UTF_8));
 
             type = buffer.get();
@@ -121,14 +120,16 @@ public class Main {
             size = buffer.getInt();
             System.out.println("Value size: " + size);
 
-            byte[] valueBytes = new byte[size];
-            for (int i = 0; i < valueBytes.length; i++) {
-                valueBytes[i] = buffer.get();
+            int[] array = new int[size / 4];
+
+            for (int i = 0; i < array.length; i++) {
+                array[i] = buffer.getInt();
             }
 
-            System.out.println(new String(valueBytes, StandardCharsets.UTF_8));
+            System.out.println("IntArray");
+            System.out.println(Arrays.toString(array));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

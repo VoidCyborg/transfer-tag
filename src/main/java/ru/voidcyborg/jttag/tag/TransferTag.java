@@ -29,13 +29,95 @@ public class TransferTag implements Tag {
         return null;
     }
 
+    public final synchronized boolean putBoolean(String name, boolean value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new BooleanNode(value));
+        return true;
+    }
+
+    public final synchronized Boolean getBoolean(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.BOOLEAN) {
+                Object o = node.getValue();
+                if (o instanceof Boolean b) return b;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putBooleanArray(String name, boolean[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new BooleanArrayNode(array));
+        return true;
+    }
+
+    public final synchronized boolean[] getBooleanArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.BOOLEAN_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof boolean[] array) return array;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putByte(String name, byte value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new ByteNode(value));
+        return true;
+    }
+
+    public final synchronized Byte getByte(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.BYTE) {
+                Object o = node.getValue();
+                if (o instanceof Byte b) return b;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putByteArray(String name, byte[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new ByteArrayNode(array));
+        return true;
+    }
+
+    public final synchronized byte[] getByteArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.BYTE_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof byte[] array) return array;
+            }
+        }
+        return null;
+    }
 
     public final synchronized boolean putShort(String name, short value) {
         if (name == null) return false;
         map.put(new StringNode(name), new ShortNode(value));
         return true;
     }
-
 
     public final synchronized Short getShort(String name) {
         if (name == null) return null;
@@ -51,7 +133,6 @@ public class TransferTag implements Tag {
         }
         return null;
     }
-
 
     public final synchronized boolean putShortArray(String name, short[] array) {
         if (name == null) return false;
@@ -74,13 +155,53 @@ public class TransferTag implements Tag {
         return null;
     }
 
+    public final synchronized boolean putInt(String name, int value) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new IntegerNode(value));
+        return true;
+    }
+
+    public final synchronized Integer getInt(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.INTEGER) {
+                Object o = node.getValue();
+                if (o instanceof Integer i) return i;
+            }
+        }
+        return null;
+    }
+
+    public final synchronized boolean putIntArray(String name, int[] array) {
+        if (name == null) return false;
+        map.put(new StringNode(name), new IntegerArrayNode(array));
+        return true;
+    }
+
+    public final synchronized int[] getIntArray(String name) {
+        if (name == null) return null;
+
+        Tag tag = map.get(new StringNode(name));
+        if (tag == null) return null;
+
+        if (tag instanceof TagNode<?> node) {
+            if (node.getType() == DataType.INTEGER_ARRAY) {
+                Object o = node.getValue();
+                if (o instanceof int[] array) return array;
+            }
+        }
+        return null;
+    }
 
     public final synchronized boolean putLong(String name, long value) {
         if (name == null) return false;
         map.put(new StringNode(name), new LongNode(value));
         return true;
     }
-
 
     public final synchronized Long getLong(String name) {
         if (name == null) return null;
@@ -96,7 +217,6 @@ public class TransferTag implements Tag {
         }
         return null;
     }
-
 
     public final synchronized boolean putLongArray(String name, long[] array) {
         if (name == null) return false;
@@ -124,7 +244,6 @@ public class TransferTag implements Tag {
         map.put(new StringNode(name), new FloatNode(value));
         return true;
     }
-
 
     public final synchronized Float getFloat(String name) {
         if (name == null) return null;
@@ -168,7 +287,6 @@ public class TransferTag implements Tag {
         return true;
     }
 
-
     public final synchronized Double getDouble(String name) {
         if (name == null) return null;
 
@@ -210,7 +328,6 @@ public class TransferTag implements Tag {
         map.put(new StringNode(name), new CharacterNode(value));
         return true;
     }
-
 
     public final synchronized Character getChar(String name) {
         if (name == null) return null;
@@ -290,139 +407,6 @@ public class TransferTag implements Tag {
         return null;
     }
 
-
-    public final synchronized boolean putInt(String name, int value) {
-        if (name == null) return false;
-        map.put(new StringNode(name), new IntegerNode(value));
-        return true;
-    }
-
-
-    public final synchronized Integer getInt(String name) {
-        if (name == null) return null;
-
-        Tag tag = map.get(new StringNode(name));
-        if (tag == null) return null;
-
-        if (tag instanceof TagNode<?> node) {
-            if (node.getType() == DataType.INTEGER) {
-                Object o = node.getValue();
-                if (o instanceof Integer i) return i;
-            }
-        }
-        return null;
-    }
-
-
-    public final synchronized boolean putIntArray(String name, int[] array) {
-        if (name == null) return false;
-        map.put(new StringNode(name), new IntegerArrayNode(array));
-        return true;
-    }
-
-    public final synchronized int[] getIntArray(String name) {
-        if (name == null) return null;
-
-        Tag tag = map.get(new StringNode(name));
-        if (tag == null) return null;
-
-        if (tag instanceof TagNode<?> node) {
-            if (node.getType() == DataType.INTEGER_ARRAY) {
-                Object o = node.getValue();
-                if (o instanceof int[] array) return array;
-            }
-        }
-        return null;
-    }
-
-    public final synchronized boolean putByte(String name, byte value) {
-        if (name == null) return false;
-        map.put(new StringNode(name), new ByteNode(value));
-        return true;
-    }
-
-
-    public final synchronized Byte getByte(String name) {
-        if (name == null) return null;
-
-        Tag tag = map.get(new StringNode(name));
-        if (tag == null) return null;
-
-        if (tag instanceof TagNode<?> node) {
-            if (node.getType() == DataType.BYTE) {
-                Object o = node.getValue();
-                if (o instanceof Byte b) return b;
-            }
-        }
-        return null;
-    }
-
-    public final synchronized boolean putByteArray(String name, byte[] array) {
-        if (name == null) return false;
-        map.put(new StringNode(name), new ByteArrayNode(array));
-        return true;
-    }
-
-    public final synchronized byte[] getByteArray(String name) {
-        if (name == null) return null;
-
-        Tag tag = map.get(new StringNode(name));
-        if (tag == null) return null;
-
-        if (tag instanceof TagNode<?> node) {
-            if (node.getType() == DataType.BYTE_ARRAY) {
-                Object o = node.getValue();
-                if (o instanceof byte[] array) return array;
-            }
-        }
-        return null;
-    }
-
-
-    public final synchronized boolean putBoolean(String name, boolean value) {
-        if (name == null) return false;
-        map.put(new StringNode(name), new BooleanNode(value));
-        return true;
-    }
-
-
-    public final synchronized Boolean getBoolean(String name) {
-        if (name == null) return null;
-
-        Tag tag = map.get(new StringNode(name));
-        if (tag == null) return null;
-
-        if (tag instanceof TagNode<?> node) {
-            if (node.getType() == DataType.BOOLEAN) {
-                Object o = node.getValue();
-                if (o instanceof Boolean b) return b;
-            }
-        }
-        return null;
-    }
-
-
-    public final synchronized boolean putBooleanArray(String name, boolean[] array) {
-        if (name == null) return false;
-        map.put(new StringNode(name), new BooleanArrayNode(array));
-        return true;
-    }
-
-    public final synchronized boolean[] getBooleanArray(String name) {
-        if (name == null) return null;
-
-        Tag tag = map.get(new StringNode(name));
-        if (tag == null) return null;
-
-        if (tag instanceof TagNode<?> node) {
-            if (node.getType() == DataType.BOOLEAN_ARRAY) {
-                Object o = node.getValue();
-                if (o instanceof boolean[] array) return array;
-            }
-        }
-        return null;
-    }
-
     @Override
     public final synchronized byte[] toBytes() {
         int index = 0;
@@ -437,7 +421,6 @@ public class TransferTag implements Tag {
 
         return Utils.uniteBytes(DataType.TAG.toBytes(), Utils.intToBytes(bytes.length), bytes);
     }
-
 
     @Override
     public final synchronized int hashCode() {

@@ -83,22 +83,14 @@ public class Utils {
             throw new IllegalArgumentException("Bytes size should be 8, but size is " + bytes.length);
 
         long result = 0;
-        result |= ((long) bytes[0] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[1] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[2] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[3] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[4] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[5] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[6] & 0xFF);
-        result <<= 8;
-        result |= ((long) bytes[7] & 0xFF);
-        result <<= 8;
+        result |= (((long) bytes[0] & 0xFF) << 56);
+        result |= (((long) bytes[1] & 0xFF) << 48);
+        result |= (((long) bytes[2] & 0xFF) << 40);
+        result |= (((long) bytes[3] & 0xFF) << 32);
+        result |= (((long) bytes[4] & 0xFF) << 24);
+        result |= (((long) bytes[5] & 0xFF) << 16);
+        result |= (((long) bytes[6] & 0xFF) << 8);
+        result |= (((long) bytes[7] & 0xFF));
 
         return result;
     }

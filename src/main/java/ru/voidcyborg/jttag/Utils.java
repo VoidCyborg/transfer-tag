@@ -24,7 +24,7 @@ public class Utils {
         return new byte[]{value};
     }
 
-    public static byte bytesToByte(byte[] bytes) {
+    public static byte bytesToByte(byte[] bytes) throws IllegalArgumentException {
         validateBytes(bytes);
         if (bytes.length != 1) throw new IllegalArgumentException("Byte size should be 1, but size is " + bytes.length);
 

@@ -6,7 +6,7 @@ import ru.voidcyborg.jttag.Utils;
 
 import java.nio.ByteBuffer;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UtilsTest {
 
@@ -15,13 +15,15 @@ class UtilsTest {
         boolean TRUE = true;
         boolean FALSE = false;
 
-        byte[] bytes = Utils.booleanToBytes(TRUE);
-        boolean actual = Utils.bytesToBoolean(bytes);
-        Assertions.assertEquals(TRUE, actual);
+        byte[] actual = Utils.booleanToBytes(TRUE);
+        byte[] expected = new byte[]{1};
 
-        bytes = Utils.booleanToBytes(FALSE);
-        actual = Utils.bytesToBoolean(bytes);
-        Assertions.assertEquals(FALSE, actual);
+        assertArrayEquals(expected, actual);
+
+        actual = Utils.booleanToBytes(FALSE);
+        expected = new byte[]{0};
+
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -34,14 +36,69 @@ class UtilsTest {
 
         actual = Utils.bytesToBoolean(FALSE);
         Assertions.assertFalse(actual);
+
+
+        //null
+        try {
+            Utils.bytesToBoolean(null);
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
+
+        //size
+        try {
+            Utils.bytesToBoolean(new byte[]{3, 5});
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
+
+        //byte value
+        try {
+            Utils.bytesToBoolean(new byte[]{3});
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
     }
 
     @Test
     void byteToBytes() {
+        byte[] expected;
+        byte[] actual;
+        for (int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
+            actual = Utils.byteToBytes((byte) i);
+            expected = new byte[]{(byte) i};
+
+            assertArrayEquals(expected, actual);
+        }
     }
 
     @Test
     void bytesToByte() {
+        byte[] bytes;
+
+        byte expected;
+        byte actual;
+        for (int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
+            bytes = new byte[]{(byte) i};
+            expected = (byte) i;
+            actual = Utils.bytesToByte(bytes);
+
+            assertEquals(expected, actual);
+        }
+
+        //null
+        try {
+            Utils.bytesToByte(null);
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
+
+        //size
+        try {
+            Utils.bytesToByte(new byte[]{3, 5});
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
     }
 
     @Test
@@ -76,13 +133,39 @@ class UtilsTest {
                 expected = buffer.getShort();
                 actual = Utils.bytesToShort(array);
 
-                Assertions.assertEquals(expected, actual);
+                assertEquals(expected, actual);
             }
+        }
+
+        //null
+        try {
+            Utils.bytesToShort(null);
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
+
+        //size
+        try {
+            Utils.bytesToShort(new byte[]{3, 5, 3});
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
         }
     }
 
     @Test
     void intToBytes() {
+
+        ByteBuffer buffer = ByteBuffer.allocate(4);
+        byte[] expected;
+        byte[] actual;
+        for (long l = Integer.MIN_VALUE; l <= Integer.MAX_VALUE; l += 5) {
+            buffer.clear();
+            buffer.putInt((int) l);
+            expected = buffer.array();
+            actual = Utils.intToBytes((int) l);
+
+            assertArrayEquals(expected, actual);
+        }
     }
 
     @Test
@@ -108,10 +191,24 @@ class UtilsTest {
                         expected = buffer.getInt();
                         actual = Utils.bytesToInt(array);
 
-                        Assertions.assertEquals(expected, actual);
+                        assertEquals(expected, actual);
                     }
                 }
             }
+        }
+
+        //null
+        try {
+            Utils.bytesToInt(null);
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
+
+        //size
+        try {
+            Utils.bytesToInt(new byte[]{3, 5, 3});
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
         }
 
     }

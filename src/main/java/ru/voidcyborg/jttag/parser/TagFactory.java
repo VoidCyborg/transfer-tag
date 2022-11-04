@@ -15,7 +15,7 @@ public class TagFactory {
      * Массив должен включать только данные этого тега, тип и размер проверяется до вызова данного метода.
      * <p>byte[1] type + byte[fixed] data</p>
      * <p>byte[1] type + byte[4] size + byte[size] data</p>
-     * Tag tag = Tag
+     * TransferTag tag = TagFactory.transferTag(bytes);
      */
     public static TransferTag transferTag(byte[] bytes) {
         return null;//TODO

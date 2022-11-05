@@ -61,6 +61,26 @@ class UtilsTest {
     }
 
     @Test
+    void byteToBoolean() {
+        byte TRUE = (byte) 1;
+        byte FALSE = (byte) 0;
+
+        boolean actual = Utils.byteToBoolean(TRUE);
+        Assertions.assertTrue(actual);
+
+        actual = Utils.byteToBoolean(FALSE);
+        Assertions.assertFalse(actual);
+
+
+        //byte value
+        try {
+            Utils.byteToBoolean((byte) 3);
+            fail("My method didn't throw when I expected it to");
+        } catch (Exception ignore) {
+        }
+    }
+
+    @Test
     void byteToBytes() {
         byte[] expected;
         byte[] actual;

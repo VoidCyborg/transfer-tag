@@ -21,8 +21,103 @@ public class TagFactory {
         return null;//TODO
     }
 
-    public static Tag arrayTag(DataType type, byte[] bytes) {
-        return null;//TODO
+    public static Tag arrayTag(DataType type, int size, byte[] bytes) throws DataFormatException {
+        switch (type) {
+            case TAG_ARRAY -> {
+                //TODO
+            }
+            case BOOLEAN_ARRAY -> {
+                if (bytes == null) return new BooleanArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+
+                boolean[] array = new boolean[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = Utils.byteToBoolean(bytes[i]);
+                }
+                return new BooleanArrayNode(array);
+            }
+            case BYTE_ARRAY -> {
+                if (bytes == null) return new ByteArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+
+                return new ByteArrayNode(bytes);
+            }
+            case SHORT_ARRAY -> {
+                if (bytes == null) return new ShortArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+                if (size % Short.BYTES != 0)
+                    throw new DataFormatException("Wrong array size " + size + " should divide by " + Short.BYTES);
+
+                short[] array = new short[size / Short.BYTES];
+                byte[] temp = new byte[Short.BYTES];
+
+                int index = 0;
+                for (int i = 0; i < size; i += Short.BYTES) {
+                    System.arraycopy(bytes, i, temp, 0, temp.length);
+                    array[index] = Utils.bytesToShort(temp);
+                    index++;
+                }
+
+                return new ShortArrayNode(array);
+            }
+            case INTEGER_ARRAY -> {
+                if (bytes == null) return new IntegerArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+                if (size % Integer.BYTES != 0)
+                    throw new DataFormatException("Wrong array size " + size + " should divide by " + Integer.BYTES);
+
+                int[] array = new int[size / Integer.BYTES];
+                byte[] temp = new byte[Integer.BYTES];
+
+                int index = 0;
+                for (int i = 0; i < size; i += Integer.BYTES) {
+                    System.arraycopy(bytes, i, temp, 0, temp.length);
+                    array[index] = Utils.bytesToInt(temp);
+                    index++;
+                }
+
+                return new IntegerArrayNode(array);
+            }
+            case LONG_ARRAY -> {
+                if (bytes == null) return new LongArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+                if (size % Long.BYTES != 0)
+                    throw new DataFormatException("Wrong array size " + size + " should divide by " + Long.BYTES);
+
+                long[] array = new long[size / Long.BYTES];
+                byte[] temp = new byte[Long.BYTES];
+
+                int index = 0;
+                for (int i = 0; i < size; i += Long.BYTES) {
+                    System.arraycopy(bytes, i, temp, 0, temp.length);
+                    array[index] = Utils.bytesToLong(temp);
+                    index++;
+                }
+
+                return new LongArrayNode(array);
+
+            }
+            case FLOAT_ARRAY -> {
+
+            }
+            case DOUBLE_ARRAY -> {
+
+            }
+            case CHARACTER_ARRAY -> {
+
+            }
+        }
+        throw new DataFormatException("Unknown data type - " + type);
     }
 
     public static Tag primitiveTag(DataType type, byte[] bytes) throws DataFormatException, IllegalArgumentException {

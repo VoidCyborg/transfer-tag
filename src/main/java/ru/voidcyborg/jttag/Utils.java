@@ -20,6 +20,14 @@ public class Utils {
         return bytes[0] == 1;
     }
 
+    public static boolean byteToBoolean(byte value) throws IllegalArgumentException {
+        if (value != 0 && value != 1)
+            throw new IllegalArgumentException("Boolean value in bytes can be only 1 or 0, not " + value);
+
+        return value == 1;
+    }
+
+
     public static byte[] byteToBytes(byte value) {
         return new byte[]{value};
     }

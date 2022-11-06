@@ -6,7 +6,10 @@ import ru.voidcyborg.jttag.tag.Tag;
 import ru.voidcyborg.jttag.tag.TransferTag;
 import ru.voidcyborg.jttag.tags.*;
 
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.DataFormatException;
 
 public class TagFactory {
@@ -21,10 +24,50 @@ public class TagFactory {
         return null;//TODO
     }
 
+
+    /**
+     * Массив должен включать только данные этого тега, тип и размер проверяется до вызова данного метода.
+     * <p>byte[1] type + byte[4] size + byte[size] data</p>
+     * TransferTag tag = TagFactory.transferTag(bytes);
+     */
     public static Tag arrayTag(DataType type, int size, byte[] bytes) throws DataFormatException {
+        if (type == null) throw new DataFormatException("Data type can't be null");
+        if (!type.isArray()) throw new DataFormatException("This is not array tag " + type);
         switch (type) {
             case TAG_ARRAY -> {
                 //TODO
+                /*if (bytes == null) return new Transfer(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+
+                List<String> values = new ArrayList<>();
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+                DataType valueType;
+                byte[] data;
+                int valueSize;
+
+
+                while (buffer.hasRemaining()) {
+                    valueType = DataType.getType(buffer.get());
+                    if (valueType != DataType.STRING)
+                        throw new DataFormatException("Wrong content of String_Array " + type);
+
+                    valueSize = buffer.getInt();
+                    if (valueSize == -1) {
+                        values.add(null);
+                        continue;
+                    }
+                    if (valueSize < 0) throw new DataFormatException("Wrong content bytes size " + valueSize);
+
+                    data = new byte[valueSize];
+                    buffer.get(data);
+
+                    values.add(new String(data, StandardCharsets.UTF_8));
+                }
+
+                return new StringArrayNode(values.toArray(new String[0]));*/
             }
             case BOOLEAN_ARRAY -> {
                 if (bytes == null) return new BooleanArrayNode(null);
@@ -55,13 +98,10 @@ public class TagFactory {
                     throw new DataFormatException("Wrong array size " + size + " should divide by " + Short.BYTES);
 
                 short[] array = new short[size / Short.BYTES];
-                byte[] temp = new byte[Short.BYTES];
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
 
-                int index = 0;
-                for (int i = 0; i < size; i += Short.BYTES) {
-                    System.arraycopy(bytes, i, temp, 0, temp.length);
-                    array[index] = Utils.bytesToShort(temp);
-                    index++;
+                for (int i = 0; buffer.hasRemaining(); i++) {
+                    array[i] = buffer.getShort();
                 }
 
                 return new ShortArrayNode(array);
@@ -75,13 +115,10 @@ public class TagFactory {
                     throw new DataFormatException("Wrong array size " + size + " should divide by " + Integer.BYTES);
 
                 int[] array = new int[size / Integer.BYTES];
-                byte[] temp = new byte[Integer.BYTES];
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
 
-                int index = 0;
-                for (int i = 0; i < size; i += Integer.BYTES) {
-                    System.arraycopy(bytes, i, temp, 0, temp.length);
-                    array[index] = Utils.bytesToInt(temp);
-                    index++;
+                for (int i = 0; buffer.hasRemaining(); i++) {
+                    array[i] = buffer.getInt();
                 }
 
                 return new IntegerArrayNode(array);
@@ -95,26 +132,98 @@ public class TagFactory {
                     throw new DataFormatException("Wrong array size " + size + " should divide by " + Long.BYTES);
 
                 long[] array = new long[size / Long.BYTES];
-                byte[] temp = new byte[Long.BYTES];
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
 
-                int index = 0;
-                for (int i = 0; i < size; i += Long.BYTES) {
-                    System.arraycopy(bytes, i, temp, 0, temp.length);
-                    array[index] = Utils.bytesToLong(temp);
-                    index++;
+                for (int i = 0; buffer.hasRemaining(); i++) {
+                    array[i] = buffer.getLong();
                 }
 
                 return new LongArrayNode(array);
-
             }
             case FLOAT_ARRAY -> {
+                if (bytes == null) return new FloatArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+                if (size % Float.BYTES != 0)
+                    throw new DataFormatException("Wrong array size " + size + " should divide by " + Float.BYTES);
 
+                float[] array = new float[size / Float.BYTES];
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+                for (int i = 0; buffer.hasRemaining(); i++) {
+                    array[i] = buffer.getFloat();
+                }
+
+                return new FloatArrayNode(array);
             }
             case DOUBLE_ARRAY -> {
+                if (bytes == null) return new DoubleArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+                if (size % Double.BYTES != 0)
+                    throw new DataFormatException("Wrong array size " + size + " should divide by " + Double.BYTES);
 
+                double[] array = new double[size / Double.BYTES];
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+                for (int i = 0; buffer.hasRemaining(); i++) {
+                    array[i] = buffer.getDouble();
+                }
+
+                return new DoubleArrayNode(array);
             }
             case CHARACTER_ARRAY -> {
+                if (bytes == null) return new CharacterArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+                if (size % Character.BYTES != 0)
+                    throw new DataFormatException("Wrong array size " + size + " should divide by " + Character.BYTES);
 
+                char[] array = new char[size / Character.BYTES];
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+                for (int i = 0; buffer.hasRemaining(); i++) {
+                    array[i] = buffer.getChar();
+                }
+
+                return new CharacterArrayNode(array);
+            }
+            case STRING_ARRAY -> {
+                if (bytes == null) return new StringArrayNode(null);
+                if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+                if (size != bytes.length)
+                    throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+
+                List<String> values = new ArrayList<>();
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+                DataType valueType;
+                byte[] data;
+                int valueSize;
+
+
+                while (buffer.hasRemaining()) {
+                    valueType = DataType.getType(buffer.get());
+                    if (valueType != DataType.STRING)
+                        throw new DataFormatException("Wrong content of String_Array " + type);
+
+                    valueSize = buffer.getInt();
+                    if (valueSize == -1) {
+                        values.add(null);
+                        continue;
+                    }
+                    if (valueSize < 0) throw new DataFormatException("Wrong content bytes size " + valueSize);
+
+                    data = new byte[valueSize];
+                    buffer.get(data);
+
+                    values.add(new String(data, StandardCharsets.UTF_8));
+                }
+
+                return new StringArrayNode(values.toArray(new String[0]));
             }
         }
         throw new DataFormatException("Unknown data type - " + type);
@@ -151,8 +260,12 @@ public class TagFactory {
         }
     }
 
-    public static Tag stringTag(byte[] bytes) throws DataFormatException {
-        if (bytes == null) throw new DataFormatException("Bytes can't be null");
+    public static StringNode stringTag(int size, byte[] bytes) throws DataFormatException {
+        if (bytes == null) return new StringNode(null);
+
+        if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
+        if (size != bytes.length) throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
+
         return new StringNode(new String(bytes, StandardCharsets.UTF_8));
     }
 }

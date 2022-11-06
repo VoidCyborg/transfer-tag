@@ -1,4 +1,4 @@
-package ru.voidcyborg.jttag.parser;
+package ru.voidcyborg.jttag;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

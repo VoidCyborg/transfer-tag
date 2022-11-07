@@ -13,6 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            littleTest();
+
+
+
             TransferTag tag = new TransferTag();
             tag.putString("lol", "data");
             tag.putString("g312", "fafafaf");
@@ -73,6 +77,16 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void littleTest() {
+        TransferTag tag = new TransferTag();
+        tag.putString("chatMessage", "HelloWorld!!!");
+        byte[] bytes = tag.toBytes();
+        System.out.println("SIZE:" + bytes.length);
+
+        TransferTag reconstruct = TagFactory.transferTag(bytes);
+        System.out.println(reconstruct);
     }
 
 

@@ -6,9 +6,17 @@ import ru.voidcyborg.jttag.tags.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransferTag implements Tag {
+public final class TransferTag implements Tag {
 
-    private final Map<StringNode, Tag> map = new HashMap<>();
+    private final Map<StringNode, Tag> map;
+
+    public TransferTag() {
+        this.map = new HashMap<>();
+    }
+
+    TransferTag(HashMap<StringNode, Tag> map) {
+        this.map = map;
+    }
 
     public final synchronized TransferTag putTag(String name) {
         if (name == null) return null;

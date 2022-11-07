@@ -1,18 +1,42 @@
-package ru.voidcyborg.jttag.parser;
+package ru.voidcyborg.jttag.tag;
 
 import ru.voidcyborg.jttag.Utils;
-import ru.voidcyborg.jttag.tag.DataType;
-import ru.voidcyborg.jttag.tag.Tag;
-import ru.voidcyborg.jttag.tag.TransferTag;
 import ru.voidcyborg.jttag.tags.*;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
 public class TagFactory {
+
+    /**
+     * Массив должен включать все данные включая тип данных
+     * TransferTag tag = TagFactory.transferTag(bytes);
+     */
+    public static TransferTag transferTag(byte[] bytes) {
+        if (bytes == null) return null;
+        if (bytes.length == 0) return null;
+
+        try {
+            ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+            DataType type = DataType.getType(buffer.get());
+            if (type != DataType.TAG) return null;
+
+            int size = buffer.getInt();
+            if (size < 0) return null;
+
+            byte[] data = new byte[size];
+            buffer.get(data);
+
+            return parseTransferTag(data);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     /**
      * Массив должен включать только данные этого тега, тип и размер проверяется до вызова данного метода.
@@ -20,10 +44,79 @@ public class TagFactory {
      * <p>byte[1] type + byte[4] size + byte[size] data</p>
      * TransferTag tag = TagFactory.transferTag(bytes);
      */
-    public static TransferTag transferTag(byte[] bytes) {
-        return null;//TODO
-    }
+    private static TransferTag parseTransferTag(byte[] bytes) throws DataFormatException {
+        if (bytes == null) throw new DataFormatException("Data bytes can't be null");
+        if (bytes.length == 0) throw new DataFormatException("Wrong content bytes size " + bytes.length);
 
+        HashMap<StringNode, Tag> map = new HashMap<>();
+        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+
+
+        StringNode stringNode = null;
+        int valueSize = -9999;
+        Tag tag = null;
+
+        DataType valueType;
+        byte[] data;
+
+        while (buffer.hasRemaining()) {
+            valueType = DataType.getType(buffer.get());
+            if (!valueType.isPrimitive() || valueType.isArray()) valueSize = buffer.getInt();
+
+            if (stringNode == null) {
+                if (valueType != DataType.STRING)
+                    throw new DataFormatException("Key should be String not " + valueType);
+                if (valueSize < 0) throw new DataFormatException("Size of key can't be negative");
+
+                data = new byte[valueSize];
+                buffer.get(data);
+                stringNode = stringTag(valueSize, data);
+            } else {
+
+                if (valueType.isArray()) {
+                    if (valueSize < -1) throw new DataFormatException("Size of array can't be negative " + valueSize);
+
+                    if (valueSize == -1) data = null;
+                    else {
+                        data = new byte[valueSize];
+                        buffer.get(data);
+                    }
+                    tag = arrayTag(valueType, valueSize, data);
+                } else if (valueType.isPrimitive()) {
+
+                    data = new byte[valueType.getSize()];
+                    buffer.get(data);
+
+                    tag = primitiveTag(valueType, data);
+                } else if (valueType == DataType.TAG) {
+                    if (valueSize < 0) throw new DataFormatException("Size of tag can't be negative");
+
+                    data = new byte[valueSize];
+                    buffer.get(data);
+
+                    tag = parseTransferTag(data);
+                } else if (valueType == DataType.STRING) {
+                    if (valueSize < -1) throw new DataFormatException("Size of String can't be negative " + valueSize);
+
+                    if (valueSize == -1) data = null;
+                    else {
+                        data = new byte[valueSize];
+                        buffer.get(data);
+                    }
+                    tag = stringTag(valueSize, data);
+                }
+
+                if (tag == null) throw new DataFormatException("Tag can't be null");
+
+                map.put(stringNode, tag);
+                tag = null;
+                stringNode = null;
+            }
+        }
+
+
+        return new TransferTag(map);//TODO
+    }
 
     /**
      * Массив должен включать только данные этого тега, тип и размер проверяется до вызова данного метода.
@@ -35,13 +128,12 @@ public class TagFactory {
         if (!type.isArray()) throw new DataFormatException("This is not array tag " + type);
         switch (type) {
             case TAG_ARRAY -> {
-                //TODO
-                /*if (bytes == null) return new Transfer(null);
+                if (bytes == null) return new TransferTagArrayNode(null);
                 if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);
                 if (size != bytes.length)
                     throw new DataFormatException("Wrong array size " + size + " and " + bytes.length);
 
-                List<String> values = new ArrayList<>();
+                List<TransferTag> values = new ArrayList<>();
                 ByteBuffer buffer = ByteBuffer.wrap(bytes);
 
                 DataType valueType;
@@ -51,8 +143,7 @@ public class TagFactory {
 
                 while (buffer.hasRemaining()) {
                     valueType = DataType.getType(buffer.get());
-                    if (valueType != DataType.STRING)
-                        throw new DataFormatException("Wrong content of String_Array " + type);
+                    if (valueType != DataType.TAG) throw new DataFormatException("Wrong content of Tag_Array " + type);
 
                     valueSize = buffer.getInt();
                     if (valueSize == -1) {
@@ -64,10 +155,10 @@ public class TagFactory {
                     data = new byte[valueSize];
                     buffer.get(data);
 
-                    values.add(new String(data, StandardCharsets.UTF_8));
+                    values.add(TagFactory.parseTransferTag(data));
                 }
 
-                return new StringArrayNode(values.toArray(new String[0]));*/
+                return new TransferTagArrayNode(values.toArray(new TransferTag[0]));
             }
             case BOOLEAN_ARRAY -> {
                 if (bytes == null) return new BooleanArrayNode(null);

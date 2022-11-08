@@ -1,18 +1,16 @@
-package ru.voidcyborg.jttag.parser;
+package ru.voidcyborg.jttag;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.Tag;
 import ru.voidcyborg.jttag.tags.*;
-import ru.voidcyborg.jttag.tag.tags.*;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class TagFactoryTest {
@@ -95,36 +93,70 @@ class TagFactoryTest {
         tag1.putBoolean("boolean", true);
         tag1.putString("nullString", null);
 
-        tags.add(new TransferTagArrayNode(new TransferTag[]{tag1, null}));
-        tags.add(new TransferTagArrayNode(null));
+        try {
+            Constructor<TransferTagArrayNode> constructor = TransferTagArrayNode.class.getDeclaredConstructor(TransferTag[].class);
+            constructor.setAccessible(true);
 
+            tags.add(constructor.newInstance((Object) new TransferTag[]{tag1, null}));
+            tags.add(constructor.newInstance((Object) null));
 
-        tags.add(new BooleanArrayNode(new boolean[]{true, false, true}));
-        tags.add(new BooleanArrayNode(null));
+            Constructor<BooleanArrayNode> constructor2 = BooleanArrayNode.class.getDeclaredConstructor(boolean[].class);
+            constructor2.setAccessible(true);
 
-        tags.add(new ByteArrayNode(new byte[]{5, 122, -56}));
-        tags.add(new ByteArrayNode(null));
+            tags.add(constructor2.newInstance((Object) new boolean[]{true, false, true}));
+            tags.add(constructor2.newInstance((Object) null));
 
-        tags.add(new ShortArrayNode(new short[]{312, 525, -566}));
-        tags.add(new ShortArrayNode(null));
+            Constructor<ByteArrayNode> constructor3 = ByteArrayNode.class.getDeclaredConstructor(byte[].class);
+            constructor3.setAccessible(true);
 
-        tags.add(new IntegerArrayNode(new int[]{3142, 52115, -56666}));
-        tags.add(new IntegerArrayNode(null));
+            tags.add(constructor3.newInstance((Object) new byte[]{5, 122, -56}));
+            tags.add(constructor3.newInstance((Object) null));
 
-        tags.add(new LongArrayNode(new long[]{314244, 5211225, -5644666}));
-        tags.add(new LongArrayNode(null));
+            Constructor<ShortArrayNode> constructor4 = ShortArrayNode.class.getDeclaredConstructor(short[].class);
+            constructor4.setAccessible(true);
 
-        tags.add(new FloatArrayNode(new float[]{314244.55f, 5211225.55f, -5644666.55f}));
-        tags.add(new FloatArrayNode(null));
+            tags.add(constructor4.newInstance((Object) new short[]{312, 525, -566}));
+            tags.add(constructor4.newInstance((Object) null));
 
-        tags.add(new DoubleArrayNode(new double[]{314244.55f, 521122455.55f, -56444666.55f}));
-        tags.add(new DoubleArrayNode(null));
+            Constructor<IntegerArrayNode> constructor5 = IntegerArrayNode.class.getDeclaredConstructor(int[].class);
+            constructor5.setAccessible(true);
 
-        tags.add(new CharacterArrayNode(new char[]{'2', '@', '!'}));
-        tags.add(new CharacterArrayNode(null));
+            tags.add(constructor5.newInstance((Object) new int[]{3142, 52115, -56666}));
+            tags.add(constructor5.newInstance((Object) null));
 
-        tags.add(new StringArrayNode(new String[]{"agjkag", "fafafa", null}));
-        tags.add(new StringArrayNode(null));
+            Constructor<LongArrayNode> constructor6 = LongArrayNode.class.getDeclaredConstructor(long[].class);
+            constructor6.setAccessible(true);
+
+            tags.add(constructor6.newInstance((Object) new long[]{314244, 5211225, -5644666}));
+            tags.add(constructor6.newInstance((Object) null));
+
+            Constructor<FloatArrayNode> constructor7 = FloatArrayNode.class.getDeclaredConstructor(float[].class);
+            constructor7.setAccessible(true);
+
+            tags.add(constructor7.newInstance((Object) new float[]{314244.55f, 5211225.55f, -5644666.55f}));
+            tags.add(constructor7.newInstance((Object) null));
+
+            Constructor<DoubleArrayNode> constructor8 = DoubleArrayNode.class.getDeclaredConstructor(double[].class);
+            constructor8.setAccessible(true);
+
+            tags.add(constructor8.newInstance((Object) new double[]{314244.55f, 521122455.55f, -56444666.55f}));
+            tags.add(constructor8.newInstance((Object) null));
+
+            Constructor<CharacterArrayNode> constructor9 = CharacterArrayNode.class.getDeclaredConstructor(char[].class);
+            constructor9.setAccessible(true);
+
+            tags.add(constructor9.newInstance((Object) new char[]{'2', '@', '!'}));
+            tags.add(constructor9.newInstance((Object) null));
+
+            Constructor<StringArrayNode> constructor10 = StringArrayNode.class.getDeclaredConstructor(String[].class);
+            constructor10.setAccessible(true);
+
+            tags.add(constructor10.newInstance((Object) new String[]{"agjkag", "fafafa", null}));
+            tags.add(constructor10.newInstance((Object) null));
+
+        } catch (Exception e) {
+            fail("Failed create constructor!");
+        }
 
         try {
 
@@ -180,11 +212,24 @@ class TagFactoryTest {
         }
 
         List<StringNode> nodes = new ArrayList<>();
-        nodes.add(new StringNode("gjalkga"));
-        nodes.add(new StringNode("5215415"));
-        nodes.add(new StringNode("77773"));
-        nodes.add(new StringNode("1522151"));
-        nodes.add(new StringNode(null));
+        Constructor<StringNode> constructor;
+
+        try {
+            constructor = StringNode.class.getDeclaredConstructor(String.class);
+            constructor.setAccessible(true);
+
+
+            nodes.add(constructor.newInstance("gjalkga"));
+            nodes.add(constructor.newInstance("5215415"));
+            nodes.add(constructor.newInstance("77773"));
+            nodes.add(constructor.newInstance("1522151"));
+            nodes.add(constructor.newInstance((Object) null));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Failed create constructor");
+            return;
+        }
 
         try {
 

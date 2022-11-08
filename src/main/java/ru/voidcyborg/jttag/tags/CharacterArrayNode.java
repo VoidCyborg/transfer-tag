@@ -8,7 +8,7 @@ public class CharacterArrayNode extends TagNode<char[]> {
     private final int hashCode;
     private final char[] array;
 
-    public CharacterArrayNode(char[] value) {
+    CharacterArrayNode(char[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

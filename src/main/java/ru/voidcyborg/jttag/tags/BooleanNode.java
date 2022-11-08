@@ -9,7 +9,7 @@ public final class BooleanNode extends TagNode<Boolean> {
     private final boolean value;
     private final int hashCode;
 
-    public BooleanNode(boolean value) {
+    BooleanNode(boolean value) {
         this.value = value;
         hashCode = value ? 1 : 0;
     }

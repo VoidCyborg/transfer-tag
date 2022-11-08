@@ -11,7 +11,7 @@ public final class StringArrayNode extends TagNode<String[]> {
     private final StringNode[] nodeArray;
     private final String[] array;
 
-    public StringArrayNode(String[] value) {
+    StringArrayNode(String[] value) {
         array = clone(value);
         nodeArray = fill(array);
         hashCode = calcHashCode();

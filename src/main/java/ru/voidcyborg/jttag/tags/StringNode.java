@@ -10,7 +10,7 @@ public final class StringNode extends TagNode<String> {
 
     private final String value;
 
-    public StringNode(String value) {
+    StringNode(String value) {
         this.value = value;
     }
 

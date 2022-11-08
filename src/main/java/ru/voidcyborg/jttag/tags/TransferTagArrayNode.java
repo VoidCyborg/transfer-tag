@@ -3,14 +3,13 @@ package ru.voidcyborg.jttag.tags;
 import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.TagNode;
-import ru.voidcyborg.jttag.tag.TransferTag;
 
 public final class TransferTagArrayNode extends TagNode<TransferTag[]> {
 
     private final int hashCode;
     private final TransferTag[] nodeArray;
 
-    public TransferTagArrayNode(TransferTag[] value) {
+    TransferTagArrayNode(TransferTag[] value) {
         nodeArray = clone(value);
         hashCode = calcHashCode();
     }

@@ -7,7 +7,7 @@ import ru.voidcyborg.jttag.tag.TagNode;
 public class DoubleNode extends TagNode<Double> {
     private final double value;
 
-    public DoubleNode(double value) {
+    DoubleNode(double value) {
         this.value = value;
     }
 

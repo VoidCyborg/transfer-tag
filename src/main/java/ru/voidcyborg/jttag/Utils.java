@@ -2,10 +2,12 @@ package ru.voidcyborg.jttag;
 
 public class Utils {
 
+    //For json representation
     private static final String reservedJSON = "\b\f\n\r\t\"\\/";
     private static final String[] replacementJSON = new String[]{"\\b", "\\f", "\\n", "\\r", "\\t", "\\\"", "\\\\", "\\/"};
 
 
+    //boolean
     public static byte[] booleanToBytes(boolean value) {
         return value ? new byte[]{1} : new byte[]{0};
     }
@@ -28,6 +30,7 @@ public class Utils {
     }
 
 
+    //bytes
     public static byte[] byteToBytes(byte value) {
         return new byte[]{value};
     }
@@ -39,6 +42,7 @@ public class Utils {
         return bytes[0];
     }
 
+    //short
     public static byte[] shortToBytes(short value) {
         return new byte[]{
                 (byte) (value >> 8),
@@ -54,6 +58,7 @@ public class Utils {
                 ((bytes[1] & 0xFF)));
     }
 
+    //integer
     public static byte[] intToBytes(int value) {
         return new byte[]{
                 (byte) (value >> 24),
@@ -73,6 +78,7 @@ public class Utils {
                 ((bytes[3] & 0xFF));
     }
 
+    //long
     public static byte[] longToBytes(long value) {
         return new byte[]{
                 (byte) (value >> 56),
@@ -103,6 +109,7 @@ public class Utils {
         return result;
     }
 
+    //float
     public static byte[] floatToBytes(float value) {
         int integer = Float.floatToIntBits(value);
         return new byte[]{
@@ -126,6 +133,7 @@ public class Utils {
         return Float.intBitsToFloat(integer);
     }
 
+    //double
     public static byte[] doubleToBytes(double value) {
         long longValue = Double.doubleToLongBits(value);
         return new byte[]{
@@ -150,6 +158,7 @@ public class Utils {
         return Double.longBitsToDouble(longValue);
     }
 
+    //char
     public static byte[] charToBytes(char value) {
         return new byte[]{
                 (byte) (value >> 8),
@@ -192,6 +201,7 @@ public class Utils {
     }
 
 
+    //bytes utils
     public static byte[] uniteBytes(byte[]... arrays) throws IllegalArgumentException {
         validateBytes(arrays);
 

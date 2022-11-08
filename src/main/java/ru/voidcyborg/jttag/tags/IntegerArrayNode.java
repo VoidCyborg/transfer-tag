@@ -9,7 +9,7 @@ public final class IntegerArrayNode extends TagNode<int[]> {
     private final int hashCode;
     private final int[] array;
 
-    public IntegerArrayNode(int[] value) {
+    IntegerArrayNode(int[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

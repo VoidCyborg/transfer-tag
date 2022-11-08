@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.Tag;
-import ru.voidcyborg.jttag.tag.TagFactory;
-import ru.voidcyborg.jttag.tag.TransferTag;
 import ru.voidcyborg.jttag.tags.*;
+import ru.voidcyborg.jttag.tag.tags.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -89,7 +88,6 @@ class TagFactoryTest {
         }
 
 
-        //TODO TAG_ARRAY
         List<Tag> tags = new ArrayList<>();
 
         TransferTag tag1 = new TransferTag();
@@ -97,9 +95,9 @@ class TagFactoryTest {
         tag1.putBoolean("boolean", true);
         tag1.putString("nullString", null);
 
-
         tags.add(new TransferTagArrayNode(new TransferTag[]{tag1, null}));
         tags.add(new TransferTagArrayNode(null));
+
 
         tags.add(new BooleanArrayNode(new boolean[]{true, false, true}));
         tags.add(new BooleanArrayNode(null));

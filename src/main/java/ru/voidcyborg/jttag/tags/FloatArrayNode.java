@@ -9,7 +9,7 @@ public class FloatArrayNode extends TagNode<float[]> {
     private final int hashCode;
     private final float[] array;
 
-    public FloatArrayNode(float[] value) {
+    FloatArrayNode(float[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

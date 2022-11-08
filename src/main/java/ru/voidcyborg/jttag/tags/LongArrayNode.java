@@ -8,7 +8,7 @@ public class LongArrayNode extends TagNode<long[]> {
     private final int hashCode;
     private final long[] array;
 
-    public LongArrayNode(long[] value) {
+    LongArrayNode(long[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

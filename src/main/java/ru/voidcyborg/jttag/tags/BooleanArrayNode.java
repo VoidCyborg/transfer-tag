@@ -8,7 +8,7 @@ public final class BooleanArrayNode extends TagNode<boolean[]> {
     private final int hashCode;
     private final boolean[] array;
 
-    public BooleanArrayNode(boolean[] value) {
+    BooleanArrayNode(boolean[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

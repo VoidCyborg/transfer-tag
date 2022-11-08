@@ -8,7 +8,7 @@ public final class IntegerNode extends TagNode<Integer> {
 
     private final int value;
 
-    public IntegerNode(int value) {
+    IntegerNode(int value) {
         this.value = value;
     }
 

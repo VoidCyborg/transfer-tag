@@ -8,7 +8,7 @@ public class ShortArrayNode extends TagNode<short[]> {
     private final int hashCode;
     private final short[] array;
 
-    public ShortArrayNode(short[] value) {
+    ShortArrayNode(short[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

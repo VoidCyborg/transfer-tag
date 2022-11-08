@@ -8,7 +8,7 @@ public class FloatNode extends TagNode<Float> {
 
     private final float value;
 
-    public FloatNode(float value) {
+    FloatNode(float value) {
         this.value = value;
     }
 

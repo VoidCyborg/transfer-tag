@@ -8,7 +8,7 @@ public final class ShortNode extends TagNode<Short> {
 
     private final short value;
 
-    public ShortNode(short value) {
+    ShortNode(short value) {
         this.value = value;
     }
 

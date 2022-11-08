@@ -8,7 +8,7 @@ public final class ByteArrayNode extends TagNode<byte[]> {
     private final int hashCode;
     private final byte[] array;
 
-    public ByteArrayNode(byte[] value) {
+    ByteArrayNode(byte[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

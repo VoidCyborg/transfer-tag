@@ -9,7 +9,7 @@ public class DoubleArrayNode extends TagNode<double[]> {
     private final int hashCode;
     private final double[] array;
 
-    public DoubleArrayNode(double[] value) {
+    DoubleArrayNode(double[] value) {
         array = clone(value);
         hashCode = calcHashCode();
     }

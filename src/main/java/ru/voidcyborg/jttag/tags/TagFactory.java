@@ -1,7 +1,8 @@
-package ru.voidcyborg.jttag.tag;
+package ru.voidcyborg.jttag.tags;
 
 import ru.voidcyborg.jttag.Utils;
-import ru.voidcyborg.jttag.tags.*;
+import ru.voidcyborg.jttag.tag.DataType;
+import ru.voidcyborg.jttag.tag.Tag;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
-public class TagFactory {
+public final class TagFactory {
 
     /**
      * Массив должен включать все данные включая тип данных

@@ -8,7 +8,7 @@ public class LongNode extends TagNode<Long> {
     private final long value;
     private final int hashCode;
 
-    public LongNode(long value) {
+    LongNode(long value) {
         this.value = value;
         this.hashCode = calcHashCode();
     }

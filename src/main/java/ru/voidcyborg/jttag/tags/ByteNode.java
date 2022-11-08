@@ -8,7 +8,7 @@ public final class ByteNode extends TagNode<Byte> {
 
     private final byte value;
 
-    public ByteNode(byte value) {
+    ByteNode(byte value) {
         this.value = value;
     }
 

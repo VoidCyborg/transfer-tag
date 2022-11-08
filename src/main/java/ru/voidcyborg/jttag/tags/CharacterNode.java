@@ -7,7 +7,7 @@ import ru.voidcyborg.jttag.tag.TagNode;
 public class CharacterNode extends TagNode<Character> {
     private final char value;
 
-    public CharacterNode(char value) {
+    CharacterNode(char value) {
         this.value = value;
     }
 

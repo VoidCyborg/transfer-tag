@@ -170,6 +170,17 @@ class TagFactoryTest {
 
     @Test
     void stringTag() {
+
+
+        Method method;
+        try {
+            method = TagFactory.class.getDeclaredMethod("stringTag", int.class, byte[].class);
+            method.setAccessible(true);
+        } catch (Exception e) {
+            fail("Failed create method");
+            return;
+        }
+
         List<StringNode> nodes = new ArrayList<>();
         nodes.add(new StringNode("gjalkga"));
         nodes.add(new StringNode("5215415"));
@@ -185,7 +196,6 @@ class TagFactoryTest {
             byte[] sizeBytes = new byte[Integer.BYTES];
             int size;
             DataType type;
-            StringNode actual;
 
             for (Tag expected : nodes) {
                 bytes = expected.toBytes();
@@ -201,9 +211,14 @@ class TagFactoryTest {
                     System.arraycopy(bytes, 5, data, 0, data.length);
                 }
 
-               /* actual = TagFactory.stringTag(size, data);
+                Object object = method.invoke(null, size, data);
 
-                Assertions.assertEquals(expected, actual);*/
+
+                if (object instanceof StringNode actual) {
+                    Assertions.assertEquals(expected, actual);
+                } else {
+                    fail("Can't recreate tag");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

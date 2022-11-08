@@ -123,7 +123,7 @@ public class TagFactory {
      * <p>byte[1] type + byte[4] size + byte[size] data</p>
      * TransferTag tag = TagFactory.transferTag(bytes);
      */
-    public static Tag arrayTag(DataType type, int size, byte[] bytes) throws DataFormatException {
+    private static Tag arrayTag(DataType type, int size, byte[] bytes) throws DataFormatException {
         if (type == null) throw new DataFormatException("Data type can't be null");
         if (!type.isArray()) throw new DataFormatException("This is not array tag " + type);
         switch (type) {
@@ -320,7 +320,7 @@ public class TagFactory {
         throw new DataFormatException("Unknown data type - " + type);
     }
 
-    public static Tag primitiveTag(DataType type, byte[] bytes) throws DataFormatException, IllegalArgumentException {
+    private static Tag primitiveTag(DataType type, byte[] bytes) throws DataFormatException, IllegalArgumentException {
         if (bytes == null) throw new DataFormatException("Bytes can't be null");
         switch (type) {
             case BOOLEAN -> {
@@ -351,7 +351,7 @@ public class TagFactory {
         }
     }
 
-    public static StringNode stringTag(int size, byte[] bytes) throws DataFormatException {
+    private static StringNode stringTag(int size, byte[] bytes) throws DataFormatException {
         if (bytes == null) return new StringNode(null);
 
         if (size < 0) throw new DataFormatException("Size of array can't be smaller than 0 - " + size);

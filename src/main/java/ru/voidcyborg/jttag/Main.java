@@ -16,7 +16,6 @@ public class Main {
             littleTest();
 
 
-
             TransferTag tag = new TransferTag();
             tag.putString("lol", "data");
             tag.putString("g312", "fafafaf");

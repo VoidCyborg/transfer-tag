@@ -10,13 +10,13 @@ import java.util.Map;
 
 public final class TransferTag implements Tag {
 
-    private final Map<StringNode, Tag> map;
+    private final Map<Key, Tag> map;
 
     public TransferTag() {
         this.map = new HashMap<>();
     }
 
-    TransferTag(HashMap<StringNode, Tag> map) {
+    TransferTag(HashMap<Key, Tag> map) {
         this.map = map;
     }
 
@@ -24,7 +24,7 @@ public final class TransferTag implements Tag {
         if (name == null) return null;
 
         TransferTag tag = new TransferTag();
-        map.put(new StringNode(name), tag);
+        map.put(new Key(new StringNode(name), DataType.TAG), tag);
 
         return tag;
     }
@@ -32,7 +32,7 @@ public final class TransferTag implements Tag {
     public synchronized TransferTag getTag(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new Key(new StringNode(name), DataType.TAG));
         if (tag == null) return null;
 
         if (tag instanceof TransferTag tt) return tt;
@@ -467,5 +467,42 @@ public final class TransferTag implements Tag {
         builder.append('}');
 
         return builder.toString();
+    }
+
+
+    private final class Key {
+        private final StringNode key;
+        private final DataType type;
+
+        public Key(StringNode key, DataType type) {
+            if (key == null || type == null) throw new NullPointerException("Key can't be null");
+            this.key = key;
+            this.type = type;
+        }
+
+        public StringNode getKey() {
+            return key;
+        }
+
+        public DataType getType() {
+            return type;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null) return false;
+            if (this == o) return true;
+            if (o instanceof Key key) {
+                if (key.type != this.type) return false;
+                if (!key.key.equals(this.key)) return false;
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return key.hashCode() + type.getCode();
+        }
     }
 }

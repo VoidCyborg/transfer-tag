@@ -3,6 +3,7 @@ package ru.voidcyborg.jttag.tags;
 import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.Tag;
+import ru.voidcyborg.jttag.tag.TagKey;
 import ru.voidcyborg.jttag.tag.TagNode;
 
 import java.util.HashMap;
@@ -10,13 +11,13 @@ import java.util.Map;
 
 public final class TransferTag implements Tag {
 
-    private final Map<StringNode, Tag> map;
+    private final Map<TagKey, Tag> map;
 
     public TransferTag() {
         this.map = new HashMap<>();
     }
 
-    TransferTag(HashMap<StringNode, Tag> map) {
+    TransferTag(HashMap<TagKey, Tag> map) {
         this.map = map;
     }
 
@@ -24,7 +25,7 @@ public final class TransferTag implements Tag {
         if (name == null) return null;
 
         TransferTag tag = new TransferTag();
-        map.put(new StringNode(name), tag);
+        map.put(new TagKey(new StringNode(name), DataType.TAG), tag);
 
         return tag;
     }
@@ -32,7 +33,7 @@ public final class TransferTag implements Tag {
     public synchronized TransferTag getTag(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.TAG));
         if (tag == null) return null;
 
         if (tag instanceof TransferTag tt) return tt;
@@ -41,14 +42,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putBoolean(String name, boolean value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new BooleanNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.BOOLEAN), new BooleanNode(value));
         return true;
     }
 
     public synchronized Boolean getBoolean(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.BOOLEAN));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -62,14 +63,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putBooleanArray(String name, boolean[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new BooleanArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.BOOLEAN_ARRAY), new BooleanArrayNode(array));
         return true;
     }
 
     public synchronized boolean[] getBooleanArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.BOOLEAN_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -83,14 +84,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putByte(String name, byte value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new ByteNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.BYTE), new ByteNode(value));
         return true;
     }
 
     public synchronized Byte getByte(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.BYTE));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -104,14 +105,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putByteArray(String name, byte[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new ByteArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.BYTE_ARRAY), new ByteArrayNode(array));
         return true;
     }
 
     public synchronized byte[] getByteArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.BYTE_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -125,14 +126,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putShort(String name, short value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new ShortNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.SHORT), new ShortNode(value));
         return true;
     }
 
     public synchronized Short getShort(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.SHORT));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -146,14 +147,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putShortArray(String name, short[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new ShortArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.SHORT_ARRAY), new ShortArrayNode(array));
         return true;
     }
 
     public synchronized short[] getShortArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.SHORT_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -167,14 +168,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putInt(String name, int value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new IntegerNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.INTEGER), new IntegerNode(value));
         return true;
     }
 
     public synchronized Integer getInt(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.INTEGER));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -188,14 +189,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putIntArray(String name, int[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new IntegerArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.INTEGER_ARRAY), new IntegerArrayNode(array));
         return true;
     }
 
     public synchronized int[] getIntArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.INTEGER_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -209,14 +210,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putLong(String name, long value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new LongNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.LONG), new LongNode(value));
         return true;
     }
 
     public synchronized Long getLong(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.LONG));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -230,14 +231,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putLongArray(String name, long[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new LongArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.LONG_ARRAY), new LongArrayNode(array));
         return true;
     }
 
     public synchronized long[] getLongArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.LONG_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -251,14 +252,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putFloat(String name, float value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new FloatNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.FLOAT), new FloatNode(value));
         return true;
     }
 
     public synchronized Float getFloat(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.FLOAT));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -272,14 +273,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putFloatArray(String name, float[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new FloatArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.FLOAT_ARRAY), new FloatArrayNode(array));
         return true;
     }
 
     public synchronized float[] getFloatArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.FLOAT_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -293,14 +294,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putDouble(String name, double value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new DoubleNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.DOUBLE), new DoubleNode(value));
         return true;
     }
 
     public synchronized Double getDouble(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.DOUBLE));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -314,14 +315,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putDoubleArray(String name, double[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new DoubleArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.DOUBLE_ARRAY), new DoubleArrayNode(array));
         return true;
     }
 
     public synchronized double[] getDoubleArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.DOUBLE_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -335,14 +336,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putChar(String name, char value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new CharacterNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.CHARACTER), new CharacterNode(value));
         return true;
     }
 
     public synchronized Character getChar(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.CHARACTER));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -356,14 +357,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putCharArray(String name, char[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new CharacterArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.CHARACTER_ARRAY), new CharacterArrayNode(array));
         return true;
     }
 
     public synchronized char[] getCharArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.CHARACTER_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -377,14 +378,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putString(String name, String value) {
         if (name == null) return false;
-        map.put(new StringNode(name), new StringNode(value));
+        map.put(new TagKey(new StringNode(name), DataType.STRING), new StringNode(value));
         return true;
     }
 
     public synchronized String getString(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.STRING));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -398,14 +399,14 @@ public final class TransferTag implements Tag {
 
     public synchronized boolean putStringArray(String name, String[] array) {
         if (name == null) return false;
-        map.put(new StringNode(name), new StringArrayNode(array));
+        map.put(new TagKey(new StringNode(name), DataType.STRING_ARRAY), new StringArrayNode(array));
         return true;
     }
 
     public synchronized String[] getStringArray(String name) {
         if (name == null) return null;
 
-        Tag tag = map.get(new StringNode(name));
+        Tag tag = map.get(new TagKey(new StringNode(name), DataType.STRING_ARRAY));
         if (tag == null) return null;
 
         if (tag instanceof TagNode<?> node) {
@@ -421,8 +422,8 @@ public final class TransferTag implements Tag {
     public synchronized byte[] toBytes() {
         int index = 0;
         byte[][] array = new byte[map.size() * 2][];
-        for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
-            array[index] = entry.getKey().toBytes();
+        for (Map.Entry<TagKey, Tag> entry : map.entrySet()) {
+            array[index] = entry.getKey().getKey().toBytes();
             array[index + 1] = entry.getValue().toBytes();
             index += 2;
         }
@@ -442,7 +443,7 @@ public final class TransferTag implements Tag {
         if (o == null) return false;
         if (o == this) return true;
         if (o instanceof TransferTag tag) {
-            for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
+            for (Map.Entry<TagKey, Tag> entry : map.entrySet()) {
                 Tag value = tag.map.get(entry.getKey());
 
                 if (value == null && entry.getValue() == null) continue;
@@ -459,8 +460,8 @@ public final class TransferTag implements Tag {
         StringBuilder builder = new StringBuilder().append('{');
 
         boolean many = map.size() > 1;
-        for (Map.Entry<StringNode, Tag> entry : map.entrySet()) {
-            builder.append(entry.getKey()).append(':').append(entry.getValue());
+        for (Map.Entry<TagKey, Tag> entry : map.entrySet()) {
+            builder.append(entry.getKey().getKey()).append(':').append(entry.getValue());
             if (many) builder.append(',');
         }
         if (many) builder.deleteCharAt(builder.length() - 1);
@@ -468,4 +469,6 @@ public final class TransferTag implements Tag {
 
         return builder.toString();
     }
+
+
 }

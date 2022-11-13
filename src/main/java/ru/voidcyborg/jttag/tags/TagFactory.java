@@ -3,6 +3,7 @@ package ru.voidcyborg.jttag.tags;
 import ru.voidcyborg.jttag.Utils;
 import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.Tag;
+import ru.voidcyborg.jttag.tag.TagKey;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -48,7 +49,7 @@ public final class TagFactory {
     private static TransferTag parseTransferTag(byte[] bytes) throws DataFormatException {
         if (bytes == null) throw new DataFormatException("Data bytes can't be null");
 
-        HashMap<StringNode, Tag> map = new HashMap<>();
+        HashMap<TagKey, Tag> map = new HashMap<>();
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
 
 
@@ -108,7 +109,7 @@ public final class TagFactory {
 
                 if (tag == null) throw new DataFormatException("Tag can't be null");
 
-                map.put(stringNode, tag);
+                map.put(new TagKey(stringNode, valueType), tag);
                 tag = null;
                 stringNode = null;
             }

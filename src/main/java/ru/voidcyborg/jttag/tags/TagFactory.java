@@ -47,7 +47,6 @@ public final class TagFactory {
      */
     private static TransferTag parseTransferTag(byte[] bytes) throws DataFormatException {
         if (bytes == null) throw new DataFormatException("Data bytes can't be null");
-        if (bytes.length == 0) throw new DataFormatException("Wrong content bytes size " + bytes.length);
 
         HashMap<StringNode, Tag> map = new HashMap<>();
         ByteBuffer buffer = ByteBuffer.wrap(bytes);

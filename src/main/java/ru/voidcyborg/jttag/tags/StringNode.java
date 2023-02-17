@@ -53,4 +53,9 @@ public final class StringNode extends TagNode<String> {
         if (value == null) return "null";
         return "\"" + Utils.toJSON(value) + "\"";
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();
+    }
 }

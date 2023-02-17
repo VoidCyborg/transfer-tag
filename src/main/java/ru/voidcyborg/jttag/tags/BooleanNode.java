@@ -48,4 +48,9 @@ public final class BooleanNode extends TagNode<Boolean> {
     public String toString() {
         return value ? "true" : "false";
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();
+    }
 }

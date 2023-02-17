@@ -8,4 +8,9 @@ public interface Tag {
      */
     byte[] toBytes();
 
+    /**
+     * Количество табов которые необходимо добавить, для красивой вложенности.
+     */
+    String toJson(long tabs);
+
 }

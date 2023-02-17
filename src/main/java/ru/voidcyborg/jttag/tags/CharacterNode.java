@@ -45,4 +45,9 @@ public class CharacterNode extends TagNode<Character> {
     public String toString() {
         return "\"" + Utils.toJSON(value) + "\"";
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();
+    }
 }

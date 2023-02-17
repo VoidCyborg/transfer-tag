@@ -90,4 +90,9 @@ public class ShortArrayNode extends TagNode<short[]> {
         builder.append(']');
         return builder.toString();
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();//TODO
+    }
 }

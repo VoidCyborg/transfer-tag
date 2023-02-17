@@ -46,4 +46,9 @@ public final class ByteNode extends TagNode<Byte> {
     public String toString() {
         return String.valueOf(value);
     }
+
+    @Override
+    public String toJson(long tabs){
+        return this.toString();
+    }
 }

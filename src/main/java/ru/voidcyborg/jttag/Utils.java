@@ -234,5 +234,11 @@ public class Utils {
         }
     }
 
+    public static void repeat(StringBuilder builder,String s, long count){
+        for(long i = 0;i<count;i++){
+            builder.append(s);
+        }
+    }
+
 
 }

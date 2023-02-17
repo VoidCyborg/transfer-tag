@@ -15,6 +15,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class TagFactoryTest {
 
+
+    @Test
+    void toJson(){
+        TransferTag tag = new TransferTag();
+        tag.putString("4444", "555555");
+        tag.putString("bsdbsb", "2412141");
+        TransferTag tag2 = tag.putTag("Test-Tag");
+
+        tag2.putStringArray("lol", new String[]{"data",null, "bebra"});
+        tag2.putString("g312", "fafafaf");
+        tag2.putString("43666", "da34444ta");
+        System.out.println(tag.toJson(0));
+    }
+
     @Test
     void transferTag() {
         TransferTag tag = new TransferTag();

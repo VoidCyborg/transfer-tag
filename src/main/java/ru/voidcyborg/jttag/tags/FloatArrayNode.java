@@ -91,4 +91,9 @@ public class FloatArrayNode extends TagNode<float[]> {
         builder.append(']');
         return builder.toString();
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();//TODO
+    }
 }

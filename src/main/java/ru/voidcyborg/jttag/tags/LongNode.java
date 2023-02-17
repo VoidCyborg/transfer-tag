@@ -51,4 +51,9 @@ public class LongNode extends TagNode<Long> {
     public String toString() {
         return String.valueOf(value);
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();
+    }
 }

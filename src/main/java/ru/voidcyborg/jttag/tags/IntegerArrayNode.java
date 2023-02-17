@@ -91,4 +91,9 @@ public final class IntegerArrayNode extends TagNode<int[]> {
         builder.append(']');
         return builder.toString();
     }
+
+    @Override
+    public String toJson(long tabs) {
+        return this.toString();//TODO
+    }
 }

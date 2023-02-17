@@ -470,5 +470,31 @@ public final class TransferTag implements Tag {
         return builder.toString();
     }
 
+    @Override
+    public synchronized String toJson(long tabs) {
+        StringBuilder builder = new StringBuilder().append('{').append("\n");
+
+        Utils.repeat(builder, "\t", tabs+1);
+
+        int last = 0;
+
+        boolean many = map.size() > 1;
+        if(many) last = map.size()-1;
+
+        int i = 0;
+        for (Map.Entry<TagKey, Tag> entry : map.entrySet()) {
+            builder.append(entry.getKey().getKey()).append(':').append(entry.getValue().toJson(tabs+1));
+            if (many) {
+                if(i != last) builder.append(',').append("\n").append("\t");
+                else builder.append("\n");
+            }
+            Utils.repeat(builder, "\t", tabs);
+            i++;
+        }
+        builder.append('}');
+
+        return builder.toString();
+    }
+
 
 }

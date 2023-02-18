@@ -482,7 +482,8 @@ public final class TransferTag implements Tag {
     public synchronized String toJson(long tabs) {
         StringBuilder builder = new StringBuilder().append('{').append("\n");
 
-        Utils.repeat(builder, "    ", tabs + 1);
+        if(map.size() != 0) Utils.repeat(builder, "    ", tabs+1);
+        else Utils.repeat(builder, "    ", tabs);
 
         int last = 0;
 
@@ -496,6 +497,7 @@ public final class TransferTag implements Tag {
                 if (i != last) builder.append(',').append("\n").append("    ");
                 else builder.append("\n");
             }
+            if(!many) builder.append("\n");
             Utils.repeat(builder, "    ", tabs);
             i++;
         }

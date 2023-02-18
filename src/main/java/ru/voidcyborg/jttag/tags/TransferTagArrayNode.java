@@ -98,7 +98,8 @@ public final class TransferTagArrayNode extends TagNode<TransferTag[]> {
         if (nodeArray == null) return "null";
         StringBuilder builder = new StringBuilder().append('[').append("\n");
 
-        Utils.repeat(builder, "    ", tabs+1);
+        if(nodeArray.length != 0) Utils.repeat(builder, "    ", tabs+1);
+        else Utils.repeat(builder, "    ", tabs);
 
         int last = 0;
 
@@ -113,6 +114,7 @@ public final class TransferTagArrayNode extends TagNode<TransferTag[]> {
                 if(i != last) builder.append(',').append("\n").append("    ");
                 else builder.append("\n");
             }
+            if(!many) builder.append("\n");
             Utils.repeat(builder, "    ", tabs);
             i++;
         }

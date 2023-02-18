@@ -17,13 +17,14 @@ class TagFactoryTest {
 
 
     @Test
-    void toJson(){
+    void toJson(){//TODO пофиксить при ситуации когда массив или тэг пустые.
         TransferTag tag = new TransferTag();
         tag.putString("4444", "555555");
         tag.putString("bsdbsb", "2412141");
         TransferTag tag2 = tag.putTag("Test-Tag");
 
-        tag2.putByteArray("43666", new byte[]{1,2,-2,55});
+        tag2.putBooleanArray("43666", new boolean[]{});
+        tag2.putBooleanArray("boolean2", new boolean[]{ true});
         tag2.putBooleanArray("boolean", new boolean[]{ true,false,true,false,false});
         tag.putCharArray("chars",new char[]{22,55,0,22});
         tag.putDoubleArray("doubles",new double[]{214.2,-312.21,-4212.2,444.65});
@@ -34,6 +35,7 @@ class TagFactoryTest {
         tag2.putString("43666", "da34444ta");
         tag2.putString("45566", "da3422444ta");
         tag2.putString("777777", "da34gff4444ta");
+        tag2.putTag("tag3");
         System.out.println(tag.toJson(0));
     }
 

@@ -91,7 +91,7 @@ public final class ByteArrayNode extends TagNode<byte[]> {
 
         StringBuilder builder = new StringBuilder().append('[').append("\n");
 
-        Utils.repeat(builder, "\t", tabs+1);
+        Utils.repeat(builder, "    ", tabs+1);
 
         int last = 0;
 
@@ -102,10 +102,10 @@ public final class ByteArrayNode extends TagNode<byte[]> {
         for (byte value : array) {
             builder.append(value);
             if (many) {
-                if(i != last) builder.append(',').append("\n").append("\t");
+                if(i != last) builder.append(',').append("\n").append("    ");
                 else builder.append("\n");
             }
-            Utils.repeat(builder, "\t", tabs);
+            Utils.repeat(builder, "    ", tabs);
             i++;
         }
         builder.append(']');

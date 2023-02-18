@@ -98,7 +98,7 @@ public class FloatArrayNode extends TagNode<float[]> {
 
         StringBuilder builder = new StringBuilder().append('[').append("\n");
 
-        Utils.repeat(builder, "\t", tabs+1);
+        Utils.repeat(builder, "    ", tabs+1);
 
         int last = 0;
 
@@ -109,10 +109,10 @@ public class FloatArrayNode extends TagNode<float[]> {
         for (float value : array) {
             builder.append(value);
             if (many) {
-                if(i != last) builder.append(',').append("\n").append("\t");
+                if(i != last) builder.append(',').append("\n").append("    ");
                 else builder.append("\n");
             }
-            Utils.repeat(builder, "\t", tabs);
+            Utils.repeat(builder, "    ", tabs);
             i++;
         }
         builder.append(']');

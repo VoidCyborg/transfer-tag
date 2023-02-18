@@ -97,7 +97,7 @@ public class LongArrayNode extends TagNode<long[]> {
 
         StringBuilder builder = new StringBuilder().append('[').append("\n");
 
-        Utils.repeat(builder, "\t", tabs+1);
+        Utils.repeat(builder, "    ", tabs+1);
 
         int last = 0;
 
@@ -108,10 +108,10 @@ public class LongArrayNode extends TagNode<long[]> {
         for (long value : array) {
             builder.append(value);
             if (many) {
-                if(i != last) builder.append(',').append("\n").append("\t");
+                if(i != last) builder.append(',').append("\n").append("    ");
                 else builder.append("\n");
             }
-            Utils.repeat(builder, "\t", tabs);
+            Utils.repeat(builder, "    ", tabs);
             i++;
         }
         builder.append(']');

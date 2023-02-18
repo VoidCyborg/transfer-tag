@@ -99,7 +99,7 @@ public final class BooleanArrayNode extends TagNode<boolean[]> {
 
         StringBuilder builder = new StringBuilder().append('[').append("\n");
 
-        Utils.repeat(builder, "\t", tabs+1);
+        Utils.repeat(builder, "    ", tabs+1);
 
         int last = 0;
 
@@ -110,10 +110,10 @@ public final class BooleanArrayNode extends TagNode<boolean[]> {
         for (boolean value : array) {
             builder.append(value);
             if (many) {
-                if(i != last) builder.append(',').append("\n").append("\t");
+                if(i != last) builder.append(',').append("\n").append("    ");
                 else builder.append("\n");
             }
-            Utils.repeat(builder, "\t", tabs);
+            Utils.repeat(builder, "    ", tabs);
             i++;
         }
         builder.append(']');

@@ -17,7 +17,7 @@ class TagFactoryTest {
 
 
     @Test
-    void toJson(){//TODO пофиксить при ситуации когда массив или тэг пустые.
+    void toJson(){
         TransferTag tag = new TransferTag();
         tag.putString("4444", "555555");
         tag.putString("bsdbsb", "2412141");

@@ -418,6 +418,15 @@ public final class TransferTag implements Tag {
         return null;
     }
 
+    public synchronized void deleteValue(String name, DataType type) {
+        if (name == null || type == null) return;
+        map.remove(new TagKey(new StringNode(name), type));
+    }
+
+    public synchronized void clearTag(){
+        map.clear();
+    }
+
     @Override
     public synchronized byte[] toBytes() {
         int index = 0;
@@ -474,18 +483,18 @@ public final class TransferTag implements Tag {
     public synchronized String toJson(long tabs) {
         StringBuilder builder = new StringBuilder().append('{').append("\n");
 
-        Utils.repeat(builder, "\t", tabs+1);
+        Utils.repeat(builder, "\t", tabs + 1);
 
         int last = 0;
 
         boolean many = map.size() > 1;
-        if(many) last = map.size()-1;
+        if (many) last = map.size() - 1;
 
         int i = 0;
         for (Map.Entry<TagKey, Tag> entry : map.entrySet()) {
-            builder.append(entry.getKey().getKey()).append(':').append(entry.getValue().toJson(tabs+1));
+            builder.append(entry.getKey().getKey()).append(':').append(entry.getValue().toJson(tabs + 1));
             if (many) {
-                if(i != last) builder.append(',').append("\n").append("\t");
+                if (i != last) builder.append(',').append("\n").append("\t");
                 else builder.append("\n");
             }
             Utils.repeat(builder, "\t", tabs);
@@ -496,7 +505,7 @@ public final class TransferTag implements Tag {
         return builder.toString();
     }
 
-    public synchronized String toJson(){
+    public synchronized String toJson() {
         return this.toJson(0);
     }
 

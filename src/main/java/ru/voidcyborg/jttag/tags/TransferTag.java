@@ -496,5 +496,9 @@ public final class TransferTag implements Tag {
         return builder.toString();
     }
 
+    public synchronized String toJson(){
+        return this.toJson(0);
+    }
+
 
 }

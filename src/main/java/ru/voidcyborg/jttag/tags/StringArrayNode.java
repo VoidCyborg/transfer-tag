@@ -103,6 +103,29 @@ public final class StringArrayNode extends TagNode<String[]> {
 
     @Override
     public String toJson(long tabs) {
-        return this.toString();//TODO
+        if (nodeArray == null) return "null";
+
+        StringBuilder builder = new StringBuilder().append('[').append("\n");
+
+        Utils.repeat(builder, "\t", tabs+1);
+
+        int last = 0;
+
+        boolean many = nodeArray.length > 1;
+        if(many) last = nodeArray.length-1;
+
+        int i = 0;
+        for (StringNode value : nodeArray) {
+            builder.append(value);
+            if (many) {
+                if(i != last) builder.append(',').append("\n").append("\t");
+                else builder.append("\n");
+            }
+            Utils.repeat(builder, "\t", tabs);
+            i++;
+        }
+        builder.append(']');
+
+        return builder.toString();
     }
 }

@@ -23,9 +23,17 @@ class TagFactoryTest {
         tag.putString("bsdbsb", "2412141");
         TransferTag tag2 = tag.putTag("Test-Tag");
 
-        tag2.putStringArray("lol", new String[]{"data",null, "bebra"});
+        tag2.putByteArray("43666", new byte[]{1,2,-2,55});
+        tag2.putBooleanArray("boolean", new boolean[]{ true,false,true,false,false});
+        tag.putCharArray("chars",new char[]{22,55,0,22});
+        tag.putDoubleArray("doubles",new double[]{214.2,-312.21,-4212.2,444.65});
+        tag.putFloatArray("floats",new float[]{-421.2f,5214f,215f,555f});
+        tag2.putIntArray("ints",new int[]{42141,512521,-213414});
+        tag.putShortArray("shorts",new short[]{1525,222,-244,222});
         tag2.putString("g312", "fafafaf");
         tag2.putString("43666", "da34444ta");
+        tag2.putString("45566", "da3422444ta");
+        tag2.putString("777777", "da34gff4444ta");
         System.out.println(tag.toJson(0));
     }
 

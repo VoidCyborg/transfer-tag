@@ -116,7 +116,7 @@ public final class TagFactory {
         }
 
 
-        return new TransferTag(map);//TODO
+        return new TransferTag(map);
     }
 
     /**

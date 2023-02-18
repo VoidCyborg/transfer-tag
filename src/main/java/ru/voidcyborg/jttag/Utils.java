@@ -3,8 +3,8 @@ package ru.voidcyborg.jttag;
 public class Utils {
 
     //For json representation
-    private static final String reservedJSON = "\b\f\n\r\t\"\\/";
-    private static final String[] replacementJSON = new String[]{"\\b", "\\f", "\\n", "\\r", "\\t", "\\\"", "\\\\", "\\/"};
+    private static final String reservedJSON = "\b\f\n\r\t\"\\";
+    private static final String[] replacementJSON = new String[]{"\\b", "\\f", "\\n", "\\r", "\\t", "\\\"", "\\\\"};
 
 
     //boolean

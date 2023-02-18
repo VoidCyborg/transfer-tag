@@ -7,9 +7,7 @@ import ru.voidcyborg.jttag.tag.TagKey;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.zip.DataFormatException;
 
 public final class TagFactory {
@@ -49,7 +47,7 @@ public final class TagFactory {
     private static TransferTag parseTransferTag(byte[] bytes) throws DataFormatException {
         if (bytes == null) throw new DataFormatException("Data bytes can't be null");
 
-        HashMap<TagKey, Tag> map = new HashMap<>();
+        Map<TagKey, Tag> map = new LinkedHashMap<>();
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
 
 

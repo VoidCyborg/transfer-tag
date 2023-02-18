@@ -5,8 +5,7 @@ import ru.voidcyborg.jttag.tag.DataType;
 import ru.voidcyborg.jttag.tag.Tag;
 import ru.voidcyborg.jttag.tag.TagKey;
 import ru.voidcyborg.jttag.tag.TagNode;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class TransferTag implements Tag {
@@ -14,10 +13,10 @@ public final class TransferTag implements Tag {
     private final Map<TagKey, Tag> map;
 
     public TransferTag() {
-        this.map = new HashMap<>();
+        this.map = new LinkedHashMap<>();
     }
 
-    TransferTag(HashMap<TagKey, Tag> map) {
+    TransferTag(Map<TagKey, Tag> map) {
         this.map = map;
     }
 
